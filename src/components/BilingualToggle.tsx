@@ -1,12 +1,5 @@
 import React from "react";
 
-/**
- * Keeps the current path tail (after /en or /el) and only swaps the language segment.
- * Works for:
- *   /en/a2/2-1  <->  /el/a2/2-1
- *   /en         <->  /el
- *   /           ->   defaults to /en/introduction or /el/introduction
- */
 export default function BilingualToggle() {
     const [state, setState] = React.useState({
         current: "en",
@@ -15,13 +8,14 @@ export default function BilingualToggle() {
     });
 
     React.useEffect(() => {
-        const parts = window.location.pathname.split("/").filter(Boolean); // e.g. ["en","a2","2-1"]
-        const current = parts[0] === "el" ? "el" : "en";
-        const tail = parts.slice(1).join("/"); // "a2/2-1"  or "" on intro/root
+        const base = import.meta.env.BASE_URL || ""; // π.χ. '/cs-study-companion/' ή '/' τοπικά
 
-        // όταν δεν υπάρχει tail, πήγαινε στην introduction
-        const hrefEN = `/en${tail ? `/${tail}` : `/introduction`}`;
-        const hrefEL = `/el${tail ? `/${tail}` : `/introduction`}`;
+        const parts = window.location.pathname.replace(base, "").split("/").filter(Boolean);
+        const current = parts[0] === "el" ? "el" : "en";
+        const tail = parts.slice(1).join("/"); // "a2/2-1" ή "" για εισαγωγή
+
+        const hrefEN = `${base}en${tail ? `/${tail}` : `/introduction`}`;
+        const hrefEL = `${base}el${tail ? `/${tail}` : `/introduction`}`;
 
         setState({ current, hrefEN, hrefEL });
     }, []);

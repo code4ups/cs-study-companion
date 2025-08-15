@@ -8,8 +8,6 @@ export default defineConfig({
   site: 'https://code4ups.github.io',
   base: '/cs-study-companion/',
   output: 'static',
-  vite: {
-    plugins: [tailwindcss()],
-  },
+  vite: { plugins: [tailwindcss()] },
   integrations: [mdx(), react()],
 });
