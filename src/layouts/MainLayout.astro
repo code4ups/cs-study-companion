@@ -1,0 +1,47 @@
+---
+import "../styles/global.css";
+import BilingualToggle from "../components/BilingualToggle.tsx";
+
+const { title = "CS Study Companion", lang = "en" } = Astro.props;
+
+const pageTitle =
+    title && title !== "CS Study Companion"
+        ? `${title} | CS Study Companion`
+        : "CS Study Companion";
+---
+
+<!doctype html>
+<html lang={lang}>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body class="min-h-screen bg-gray-50 text-gray-900 antialiased">
+<!-- Header -->
+<header class="bg-indigo-600 text-white shadow">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <!-- Λογότυπο → πάει στην εισαγωγή της ΤΡΕΧΟΥΣΑΣ γλώσσας -->
+        <a href={`/${lang}/introduction`} class="text-xl sm:text-2xl font-bold">
+            CS Study Companion
+        </a>
+
+        <!-- Γλωσσικό toggle (μία φορά, παγκόσμιο) -->
+        <BilingualToggle client:load />
+    </nav>
+</header>
+
+<!-- Main -->
+<main class="mx-auto max-w-6xl px-6 py-8">
+    <slot />
+</main>
+
+<!-- Footer -->
+<footer class="mt-10 bg-gray-200 text-gray-700">
+    <div class="mx-auto max-w-6xl px-6 py-6 text-center text-sm">
+        © {new Date().getFullYear()} CS Study Companion
+    </div>
+</footer>
+</body>
+</html>

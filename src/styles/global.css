@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Προσαρμογές prose (προαιρετικές) */
+.prose {
+    --tw-prose-body: theme(colors.slate.800);
+    --tw-prose-headings: theme(colors.slate.900);
+    --tw-prose-links: theme(colors.indigo.700);
+    --tw-prose-bold: theme(colors.slate.900);
+    --tw-prose-hr: theme(colors.gray.300);
+    --tw-prose-quotes: theme(colors.slate.900);
+    --tw-prose-code: theme(colors.slate.900);
+    --tw-prose-th-borders: theme(colors.gray.300);
+    --tw-prose-td-borders: theme(colors.gray.300);
+}
+
+/* σκοτεινό */
+:root[class~="dark"] .prose {
+    --tw-prose-body: theme(colors.slate.200);
+    --tw-prose-headings: theme(colors.white);
+    --tw-prose-links: theme(colors.indigo.300);
+    --tw-prose-bold: theme(colors.white);
+    --tw-prose-hr: theme(colors.gray.700);
+    --tw-prose-quotes: theme(colors.slate.100);
+    --tw-prose-code: theme(colors.slate.100);
+    --tw-prose-th-borders: theme(colors.gray.700);
+    --tw-prose-td-borders: theme(colors.gray.700);
+}

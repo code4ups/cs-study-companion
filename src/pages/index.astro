@@ -1,0 +1,14 @@
+---
+// src/pages/index.astro
+export const prerender = false;
+
+function pickLang(accept: string | null) {
+    const a = (accept || "").toLowerCase();
+    return a.includes("el") ? "el" : "en";
+}
+const lang = pickLang(Astro.request.headers.get("accept-language"));
+const target = `/${lang}/introduction`;
+
+Astro.response.status = 307;
+Astro.response.headers.set("Location", target);
+---
