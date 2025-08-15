@@ -1,17 +1,15 @@
-// @ts-check
+// astro.config.mjs
 import { defineConfig } from 'astro/config';
-
+import mdx from '@astrojs/mdx';
+import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 
-import mdx from '@astrojs/mdx';
-
-import react from '@astrojs/react';
-
-// https://astro.build/config
 export default defineConfig({
+  site: 'https://code4ups.github.io/cs-study-companion/',
+  base: '/cs-study-companion/',
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
   },
-
-  integrations: [mdx(), react()]
+  integrations: [mdx(), react()],
+  output: 'static',
 });
