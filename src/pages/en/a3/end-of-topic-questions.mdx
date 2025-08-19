@@ -35,13 +35,68 @@ description: "Review and exam-style questions for A3 – Databases."
 
     5. Consider the following database which stores data regarding customers and their purchases at an online store.
 
-    | User_ID | Name    | Contact                                     | Item_ID | Item_Name             | Manufacturer_ID | Location |
-    | ------- | ------- | ------------------------------------------- | ------- | --------------------- | ---------------- | -------- |
-    | G943    | Grahame | [Grahame@mail.com](mailto:Grahame@mail.com) | 49493   | Dinner set             | 4930             | Italy    |
-    |         |         |                                             | 49402   | Cutlery                | 3023             | France   |
-    |         |         |                                             | 49403   | Fruit bowl             | 4940             | Italy    |
-    | L0493   | Lizzie  | [Lizzie@gmail.com](mailto:Lizzie@gmail.com) | 49493   | Dinner set             | 4930             | Italy    |
-    |         |         |                                             | 40933   | Salt and pepper shaker | 5055             | Austria  |
+    <div className="overflow-x-auto">
+        <table>
+            <thead>
+            <tr>
+                <th>User_ID</th>
+                <th>Name</th>
+                <th>Contact</th>
+                <th>Item_ID</th>
+                <th>Item_Name</th>
+                <th>Manufacturer_ID</th>
+                <th>Location</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>G943</td>
+                <td>Grahame</td>
+                <td><a href="mailto:Grahame@mail.com">Grahame@mail.com</a></td>
+                <td>49493</td>
+                <td>Dinner set</td>
+                <td>4930</td>
+                <td>Italy</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>49402</td>
+                <td>Cutlery</td>
+                <td>3023</td>
+                <td>France</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>49403</td>
+                <td>Fruit bowl</td>
+                <td>4940</td>
+                <td>Italy</td>
+            </tr>
+            <tr>
+                <td>L0493</td>
+                <td>Lizzie</td>
+                <td><a href="mailto:Lizzie@gmail.com">Lizzie@gmail.com</a></td>
+                <td>49493</td>
+                <td>Dinner set</td>
+                <td>4930</td>
+                <td>Italy</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>40933</td>
+                <td>Salt and pepper shaker</td>
+                <td>5055</td>
+                <td>Austria</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     **a. Construct an SQL statement to display all customers who have visited Italy.**
     *[3 marks]*
