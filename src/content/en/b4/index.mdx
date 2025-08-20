@@ -1,7 +1,22 @@
 ---
-title: "Section B4 – Overview"
-description: "Overview and navigation for B4"
+title: "B4 – Abstract Data Types (ADTs)"
+description: "Understand how abstract data types define operations on data without exposing internal implementation details."
 ---
 
-> _This page introduces **B4** and links to its sub‑topics._
+<article className="prose prose-lg prose-slate max-w-none">
+    # B4 – Abstract Data Types (ADTs)
 
+    ### Which abstract data types (ADTs) are best suited for different kinds of problems?
+
+    ---
+
+    An abstract data type (ADT) is a concept in computer science that defines a data type based on its behaviour rather than its internal structure. This means we do not focus on how the data is stored internally or how the operations are executed, but instead on what the user is able to do with the data.
+
+    For example, in a video game you may have an inventory where you can keep items like weapons, potions, or crafting materials. With this inventory, you can add new items, remove items you no longer need, or check if you have a certain item and how many of it.
+
+    As the player, you do not need to know how the program keeps track of all these items. They could be managed through a list, an array, or any other method the developers chose. What matters is that you can interact with the inventory (add, delete, check) without needing to understand the details of how it is implemented behind the scenes.
+
+    In this way, an ADT works like the inventory system. It gives you the rules of how you can use and manage the data (such as adding or removing information), but not the technical details of how these actions are performed. It is called “abstract” because it hides the complexity of storage and management.
+
+    So, when computer scientists talk about ADTs, they mean creating a framework that defines what operations can be done with data, without being concerned with the low-level details of how the data is stored. This allows programmers to focus on solving the actual problem (such as designing an inventory system) rather than on the background mechanics of data organization.
+</article>
