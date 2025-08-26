@@ -1,15 +1,18 @@
 // src/components/features/TOKBox.tsx
 import type { ReactNode } from 'react';
 
-interface Props {
+type Props = {
     children: ReactNode;
-}
+    lang?: 'en' | 'el';
+};
 
-export const TOKBox = ({ children }: Props) => (
-    <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 my-6">
-        <div className="flex items-center mb-2">
-            <span className="text-purple-600 font-semibold">🧠 Theory of Knowledge</span>
+export const TOKBox = ({ children, lang = 'el' }: Props) => {
+    const label = lang === 'en' ? '🧠 Theory of Knowledge (TOK)' : '🧠 Θεωρία της Γνώσης (TOK)';
+
+    return (
+        <div className="bg-purple-50 border border-purple-300 rounded-lg p-4 my-6">
+            <p className="font-semibold text-purple-700 mb-2">{label}</p>
+            <div className="text-gray-800">{children}</div>
         </div>
-        <div className="text-gray-700">{children}</div>
-    </div>
-);
+    );
+};

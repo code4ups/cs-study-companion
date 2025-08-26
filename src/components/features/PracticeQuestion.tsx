@@ -1,12 +1,18 @@
+// src/components/features/PracticeQuestion.tsx
 import type { ReactNode } from 'react';
 
-interface Props {
+type Props = {
     children: ReactNode;
-}
+    lang?: 'en' | 'el';
+};
 
-export const PracticeQuestion = ({ children }: Props) => (
-    <div className="bg-blue-50 border border-blue-300 rounded-lg p-4 my-6">
-        <p className="font-semibold text-blue-700 mb-2">📘 Ερωτήσεις εξάσκησης</p>
-        <div className="text-gray-700 space-y-2">{children}</div>
-    </div>
-);
+export const PracticeQuestion = ({ children, lang = 'el' }: Props) => {
+    const label = lang === 'en' ? '📘 Practice Questions' : '📘 Ερωτήσεις εξάσκησης';
+
+    return (
+        <div className="bg-blue-50 border-l-4 border-blue-500 p-4 my-6 rounded">
+            <p className="font-semibold text-blue-700 mb-2">{label}</p>
+            <div className="text-gray-800">{children}</div>
+        </div>
+    );
+};

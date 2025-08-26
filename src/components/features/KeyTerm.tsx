@@ -1,13 +1,18 @@
+// src/components/features/KeyTerm.tsx
 import type { ReactNode } from 'react';
 
-interface Props {
-    term: string;
+type Props = {
     children: ReactNode;
-}
+    lang?: 'en' | 'el';
+};
 
-export const KeyTerm = ({ term, children }: Props) => (
-    <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 my-6">
-        <p className="font-semibold text-yellow-700">🔑 {term}</p>
-        <p className="text-gray-700">{children}</p>
-    </div>
-);
+export const KeyTerm = ({ children, lang = 'el' }: Props) => {
+    const label = lang === 'en' ? '🔑 Key term' : '🔑 Βασικός όρος';
+
+    return (
+        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 my-6 rounded">
+            <p className="font-semibold text-yellow-700 mb-2">{label}</p>
+            <div className="text-gray-800">{children}</div>
+        </div>
+    );
+};
