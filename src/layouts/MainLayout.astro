@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import BilingualToggle from "../components/BilingualToggle.tsx";
+import DarkModeToggle from "../components/DarkModeToggle.tsx";
 import ScrollToTop from "../components/ScrollToTop.tsx";
 
 // Props
@@ -23,22 +24,41 @@ const pageTitle =
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
-
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <!-- Prevent dark mode flash with saved preference priority -->
+    <script is:inline>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                var theme = saved || (prefersDark ? 'dark' : 'light');
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch (_) {
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
+                }
+            }
+        })();
+    </script>
 </head>
-
-<body class="min-h-screen bg-gray-50 text-gray-900 antialiased">
+<body class="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased transition-colors duration-300">
 <!-- Header -->
-<header class="bg-indigo-600 text-white shadow">
+<header class="bg-indigo-600 dark:bg-indigo-800 text-white shadow transition-colors duration-300">
     <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <!-- Λογότυπο → πάει στην εισαγωγή της ΤΡΕΧΟΥΣΑΣ γλώσσας -->
         <a href={`${base}/${lang}/introduction`} class="text-xl sm:text-2xl font-bold">
             CS Study Companion
         </a>
-
-        <!-- Γλωσσικό toggle (παγκόσμιο) -->
-        <BilingualToggle client:load />
+        <!-- Δεξιά controls: BilingualToggle + DarkModeToggle -->
+        <div class="flex items-center">
+            <BilingualToggle lang={lang} client:load />
+            <DarkModeToggle lang={lang} client:load />
+        </div>
     </nav>
 </header>
 
@@ -48,11 +68,12 @@ const pageTitle =
 </main>
 
 <!-- Footer -->
-<footer class="mt-10 bg-gray-200 text-gray-700">
+<footer class="mt-10 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors duration-300">
     <div class="mx-auto max-w-6xl px-6 py-6 text-center text-sm">
         © {new Date().getFullYear()} CS Study Companion
     </div>
 </footer>
+
 <!-- ScrollToTop Component -->
 <ScrollToTop client:load />
 </body>

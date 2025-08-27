@@ -1,52 +1,54 @@
-import React from "react";
+// src/components/BilingualToggle.tsx
+import React from 'react';
+import { Languages } from 'lucide-react';
+import IconButton from '@/components/ui/IconButton';
 
-export default function BilingualToggle() {
-    const [state, setState] = React.useState({
-        current: "en",
-        hrefEN: "/en/introduction",
-        hrefEL: "/el/introduction",
-    });
+type Lang = 'el' | 'en';
 
-    React.useEffect(() => {
-        const base = import.meta.env.BASE_URL || ""; // π.χ. '/cs-study-companion/' ή '/' τοπικά
+type Props = {
+    lang?: Lang;
+    base?: string; // αν θες να επιβάλεις base, αλλιώς βρίσκουμε από URL
+};
 
-        const parts = window.location.pathname.replace(base, "").split("/").filter(Boolean);
-        const current = parts[0] === "el" ? "el" : "en";
-        const tail = parts.slice(1).join("/"); // "a2/2-1" ή "" για εισαγωγή
+const BilingualToggle: React.FC<Props> = ({ lang, base }) => {
+    const getLang = (): Lang => {
+        if (lang === 'el' || lang === 'en') return lang;
+        try {
+            const l = document.documentElement.lang?.toLowerCase();
+            return l?.startsWith('el') ? 'el' : 'en';
+        } catch { return 'en'; }
+    };
+    const L = getLang();
 
-        const hrefEN = `${base}en${tail ? `/${tail}` : `/introduction`}`;
-        const hrefEL = `${base}el${tail ? `/${tail}` : `/introduction`}`;
+    const hover = L === 'el' ? 'Αλλαγή σε Αγγλικά' : 'Switch to Greek';
 
-        setState({ current, hrefEN, hrefEL });
-    }, []);
+    const getToggledHref = () => {
+        const { pathname, search, hash } = window.location;
+        const baseUrl = (base ?? (import.meta as any).env?.BASE_URL ?? '/')
+            .replace(/\/+$/, '/').replace(/^\/+/, '/');
 
-    const commonBtn =
-        "px-2 py-1 rounded text-sm transition-colors";
+        const segs = pathname.replace(/^\/+/, '/').split('/').filter(Boolean);
+        const idx = segs.findIndex(s => s === 'el' || s === 'en');
+        if (idx >= 0) segs[idx] = L === 'el' ? 'en' : 'el';
+        else segs.unshift(L === 'el' ? 'en' : 'el');
+
+        const newPath = '/' + segs.join('/');
+        return newPath + (search || '') + (hash || '');
+    };
+
+    const onClick = () => {
+        try {
+            window.location.assign(getToggledHref());
+        } catch {
+            document.documentElement.lang = L === 'el' ? 'en' : 'el';
+        }
+    };
 
     return (
-        <div className="flex items-center gap-2">
-            <a
-                href={state.hrefEN}
-                aria-current={state.current === "en" ? "page" : undefined}
-                className={
-                    state.current === "en"
-                        ? `${commonBtn} bg-indigo-600 text-white`
-                        : `${commonBtn} bg-gray-200 text-gray-800 hover:bg-gray-300`
-                }
-            >
-                EN
-            </a>
-            <a
-                href={state.hrefEL}
-                aria-current={state.current === "el" ? "page" : undefined}
-                className={
-                    state.current === "el"
-                        ? `${commonBtn} bg-indigo-600 text-white`
-                        : `${commonBtn} bg-gray-200 text-gray-800 hover:bg-gray-300`
-                }
-            >
-                EL
-            </a>
-        </div>
+        <IconButton title={hover} ariaLabel={hover} onClick={onClick}>
+            <Languages className="h-5 w-5 transition-transform duration-300 hover:rotate-6" />
+        </IconButton>
     );
-}
+};
+
+export default BilingualToggle;

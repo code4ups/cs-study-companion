@@ -1,28 +1,168 @@
 @import "tailwindcss";
+@config "../../tailwind.config.ts";
 @plugin "@tailwindcss/typography";
 
-/* Προσαρμογές prose (προαιρετικές) */
+/*
+  ============================================================
+  Global Markdown/Prose tokens
+  - Δεν πειράζουμε Tailwind utility κλάσεις (καμία .text-gray-700 κ.λπ.)
+  - Ορίζουμε μόνο CSS variables για .prose και semantic στοιχεία
+  - Σκοπός: υψηλή αντίθεση σε dark χωρίς εξαφανίσεις κειμένου
+  ============================================================
+*/
+
+/* Light prose */
 .prose {
-    --tw-prose-body: theme(colors.slate.800);
-    --tw-prose-headings: theme(colors.slate.900);
-    --tw-prose-links: theme(colors.indigo.700);
-    --tw-prose-bold: theme(colors.slate.900);
-    --tw-prose-hr: theme(colors.gray.300);
-    --tw-prose-quotes: theme(colors.slate.900);
-    --tw-prose-code: theme(colors.slate.900);
-    --tw-prose-th-borders: theme(colors.gray.300);
-    --tw-prose-td-borders: theme(colors.gray.300);
+  --tw-prose-body: theme(colors.slate.800);
+  --tw-prose-headings: theme(colors.slate.900);
+  --tw-prose-links: theme(colors.indigo.700);
+  --tw-prose-bold: theme(colors.slate.900);
+  --tw-prose-hr: theme(colors.gray.300);
+  --tw-prose-quotes: theme(colors.slate.900);
+  --tw-prose-code: theme(colors.slate.900);
+  --tw-prose-th-borders: theme(colors.gray.300);
+  --tw-prose-td-borders: theme(colors.gray.300);
 }
 
-/* σκοτεινό */
-:root[class~="dark"] .prose {
-    --tw-prose-body: theme(colors.slate.200);
-    --tw-prose-headings: theme(colors.white);
-    --tw-prose-links: theme(colors.indigo.300);
-    --tw-prose-bold: theme(colors.white);
-    --tw-prose-hr: theme(colors.gray.700);
-    --tw-prose-quotes: theme(colors.slate.100);
-    --tw-prose-code: theme(colors.slate.100);
-    --tw-prose-th-borders: theme(colors.gray.700);
-    --tw-prose-td-borders: theme(colors.gray.700);
+/* Dark prose: δυνατή αντίθεση */
+:root.dark .prose {
+  --tw-prose-body: theme(colors.gray.100);
+  --tw-prose-headings: theme(colors.white);
+  --tw-prose-links: theme(colors.indigo.300);
+  --tw-prose-bold: theme(colors.white);
+  --tw-prose-hr: theme(colors.gray.700);
+  --tw-prose-quotes: theme(colors.gray.100);
+  --tw-prose-code: theme(colors.gray.100);
+  --tw-prose-th-borders: theme(colors.gray.700);
+  --tw-prose-td-borders: theme(colors.gray.700);
 }
+
+/* ============================================================
+   Tables (ουδέτερη, υψηλή αντίθεση σε dark)
+   ============================================================ */
+:root.dark table {
+  border-color: theme(colors.gray.700);
+}
+:root.dark thead {
+  background-color: theme(colors.gray.800);
+}
+:root.dark th,
+:root.dark td {
+  border-color: theme(colors.gray.700);
+  color: theme(colors.gray.100);
+}
+:root.dark tbody tr {
+  background-color: theme(colors.gray.900);
+}
+:root.dark tbody tr:nth-child(even) {
+  background-color: theme(colors.gray.800);
+}
+
+/* ============================================================
+   Links
+   ============================================================ */
+:root.dark a,
+:root.dark .prose a,
+:root.dark .underline {
+  color: theme(colors.indigo.300);
+}
+:root.dark a:hover,
+:root.dark .prose a:hover {
+  color: theme(colors.violet.300);
+}
+
+/* ============================================================
+   Custom component “pill” backgrounds (ασφαλή σε dark)
+   ============================================================ */
+:root.dark .bg-blue-50 {
+  background-color: color-mix(in oklab, theme(colors.blue.900) 25%, transparent);
+}
+:root.dark .bg-green-50 {
+  background-color: color-mix(in oklab, theme(colors.green.900) 25%, transparent);
+}
+:root.dark .bg-yellow-50 {
+  background-color: color-mix(in oklab, theme(colors.yellow.900) 25%, transparent);
+}
+
+:root.dark .text-blue-800   { color: theme(colors.blue.300); }
+:root.dark .text-green-800  { color: theme(colors.green.300); }
+:root.dark .text-yellow-800 { color: theme(colors.yellow.300); }
+
+:root.dark .border-blue-200   { border-color: theme(colors.blue.700); }
+:root.dark .border-green-200  { border-color: theme(colors.green.700); }
+:root.dark .border-yellow-200 { border-color: theme(colors.yellow.700); }
+
+/* ============================================================
+   Γενικό κείμενο σε markdown/longform (ασφαλές χωρίς !important)
+   ============================================================ */
+:root.dark p,
+:root.dark ul li,
+:root.dark ol li {
+  color: theme(colors.gray.200);
+}
+:root.dark strong {
+  color: theme(colors.gray.100);
+}
+
+/* ============================================================
+   Scrollbar σε dark
+   ============================================================ */
+:root.dark ::-webkit-scrollbar {
+  width: 12px;
+}
+:root.dark ::-webkit-scrollbar-track {
+  background: theme(colors.gray.900);
+}
+:root.dark ::-webkit-scrollbar-thumb {
+  background: theme(colors.gray.700);
+  border-radius: 6px;
+}
+:root.dark ::-webkit-scrollbar-thumb:hover {
+  background: theme(colors.gray.500);
+}
+
+/* ============================================================
+   Smooth color transitions (χρήσιμο όταν κάνεις toggle)
+   ============================================================ */
+html {
+  transition: background-color 0.25s, color 0.25s;
+}
+
+/* ============================================================
+   Markdown code blocks υψηλής αντίθεσης
+   ============================================================ */
+.prose pre {
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+:root.dark .prose pre {
+  background-color: theme(colors.gray.900);
+  color: theme(colors.gray.100);
+  border: 1px solid theme(colors.gray.800);
+}
+
+/* Inline code */
+.prose code {
+  border-radius: 0.375rem;
+  padding: 0.125rem 0.375rem;
+  background-color: theme(colors.gray.100);
+  color: theme(colors.gray.800);
+}
+:root.dark .prose code {
+  background-color: theme(colors.gray.800);
+  color: theme(colors.gray.100);
+}
+
+/* Blockquotes */
+.prose blockquote {
+  border-left: 4px solid theme(colors.gray.300);
+  padding-left: 1rem;
+  color: theme(colors.slate.700);
+}
+:root.dark .prose blockquote {
+  border-left-color: theme(colors.gray.700);
+  color: theme(colors.gray.200);
+}
+/* Δηλωτικό color-scheme ώστε τα native controls να ακολουθούν το theme */
+:root { color-scheme: light; }
+:root.dark { color-scheme: dark; }
