@@ -9,7 +9,9 @@ const baseSchema = z.object({
     features: z.array(z.enum([
         'tok',
         'key-term',
-        'practice-question'
+        'practice-question',
+        'guiding-question',
+        'syllabus-understanding'
     ])).optional()
 
 });
