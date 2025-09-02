@@ -166,3 +166,17 @@ html {
 /* Δηλωτικό color-scheme ώστε τα native controls να ακολουθούν το theme */
 :root { color-scheme: light; }
 :root.dark { color-scheme: dark; }
+
+/* Enhanced hover effects for curriculum table */
+.hover-lift {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+:root.dark .hover-lift:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
