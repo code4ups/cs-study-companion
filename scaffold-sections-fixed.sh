@@ -70,7 +70,7 @@ import { KeyTerm, PracticeQuestion } from '../../../../../components/mdx';
 
 ## Περιεχόμενο
 
-<!-- Προσθέστε εδώ το περιεχόμενο της ενότητας -->
+
 
 <KeyTerm lang="LANG_PLACEHOLDER">
 **Όρος**: Περιγραφή όρου
