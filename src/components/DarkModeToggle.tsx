@@ -26,7 +26,8 @@ const DarkModeToggle: React.FC<Props> = ({ lang }) => {
     } catch { return 'light'; }
   };
 
-  const [mode, setMode] = useState<Mode>(getInitial);
+  // ΝΕΟ: Αρχικοποίηση με null για αποφυγή hydration mismatch
+  const [mode, setMode] = useState<Mode | null>(null);
 
   const apply = (m: Mode) => {
     const root = document.documentElement;
@@ -34,7 +35,16 @@ const DarkModeToggle: React.FC<Props> = ({ lang }) => {
     try { localStorage.setItem('theme', m); } catch {}
   };
 
-  useEffect(() => { apply(mode); }, [mode]);
+  // ΝΕΟ: Initialization μετά το mount
+  useEffect(() => {
+    const initialMode = getInitial();
+    setMode(initialMode);
+    apply(initialMode);
+  }, []);
+
+  useEffect(() => {
+    if (mode) apply(mode);
+  }, [mode]);
 
   useEffect(() => {
     const saved = localStorage.getItem('theme');
@@ -46,6 +56,15 @@ const DarkModeToggle: React.FC<Props> = ({ lang }) => {
   }, []);
 
   const toggle = () => setMode(m => (m === 'dark' ? 'light' : 'dark'));
+
+  // ΝΕΟ: Επιστροφή loading state μέχρι το initialization
+  if (mode === null) {
+    return (
+        <IconButton title="Loading..." ariaLabel="Loading theme" onClick={() => {}} className="ml-2">
+          <div className="h-5 w-5" /> {/* Empty placeholder */}
+        </IconButton>
+    );
+  }
 
   const hover =
       mode === 'dark'
