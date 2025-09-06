@@ -6,3 +6,5 @@ export { SyllabusUnderstanding } from "../features/SyllabusUnderstanding";
 export { SubtopicNavigation } from "../features/SubtopicNavigation";
 export { EndOfTopicLink } from "../features/EndOfTopicLink";
 export { ExamQuestions } from "../features/ExamQuestions";
+export { MetadataInfoBox } from "../MetadataInfoBox";
+export { SimplifiedMetadataBox } from "../SimplifiedMetadataBox";
