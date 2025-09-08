@@ -8,3 +8,4 @@ export { EndOfTopicLink } from "../features/EndOfTopicLink";
 export { ExamQuestions } from "../features/ExamQuestions";
 export { MetadataInfoBox } from "../MetadataInfoBox";
 export { SimplifiedMetadataBox } from "../SimplifiedMetadataBox";
+export { ComparativeQuickReference } from "../features/QuickReference";
