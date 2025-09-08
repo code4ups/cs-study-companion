@@ -10,9 +10,9 @@ const labels = {
         copied: "Copied!",
         noResults: "No results found",
         allSections: "All Sections",
-        comparative: "Compare Languages",
-        pythonOnly: "Python Only",
-        javaOnly: "Java Only",
+        comparative: "Compare",
+        singleLanguage: "Switch",
+        viewMode: "View Mode:",
         example: "Example:",
         notes: "Notes:"
     },
@@ -22,9 +22,9 @@ const labels = {
         copied: "Αντιγράφηκε!",
         noResults: "Δεν βρέθηκαν αποτελέσματα",
         allSections: "Όλες οι Ενότητες",
-        comparative: "Σύγκριση Γλωσσών",
-        pythonOnly: "Μόνο Python",
-        javaOnly: "Μόνο Java",
+        comparative: "Σύγκριση",
+        singleLanguage: "Εναλλαγή",
+        viewMode: "Προβολή:",
         example: "Παράδειγμα:",
         notes: "Σημειώσεις:"
     }
@@ -90,21 +90,16 @@ export const ComparativeQuickReference = ({
     return (
         <div className={`max-w-7xl mx-auto ${className}`}>
             {/* Header */}
-            <div className="mb-8">
-                <div className="flex items-center gap-3 mb-4">
-                    <Code className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-                    <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                        Programming Quick Reference
-                    </h1>
-                </div>
+            <div className="mb-6">
+
 
                 {/* View Mode Toggle */}
-                <div className="flex items-center gap-4 p-4 bg-slate-100 dark:bg-slate-800 rounded-lg">
-                    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">View Mode:</span>
+                <div className="flex items-center justify-center gap-4 p-4 bg-slate-100 dark:bg-slate-800 rounded-lg">
+                    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{L.viewMode}</span>
 
                     <button
                         onClick={() => setCurrentViewMode('comparative')}
-                        className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors ${
+                        className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm transition-colors ${
                             currentViewMode === 'comparative'
                                 ? 'bg-blue-600 text-white'
                                 : 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600'
@@ -115,42 +110,40 @@ export const ComparativeQuickReference = ({
                     </button>
 
                     <button
-                        onClick={() => setCurrentViewMode('single')}
-                        className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors ${
+                        onClick={() => {
+                            if (currentViewMode === 'single') {
+                                // Toggle between Python and Java
+                                setCurrentLanguage(currentLanguage === 'python' ? 'java' : 'python');
+                            } else {
+                                // Switch to single mode
+                                setCurrentViewMode('single');
+                            }
+                        }}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm transition-colors ${
                             currentViewMode === 'single'
                                 ? 'bg-blue-600 text-white'
                                 : 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600'
                         }`}
                     >
-                        <ToggleLeft className="h-4 w-4" />
-                        {currentViewMode === 'single' ? (currentLanguage === 'python' ? 'Python Only' : 'Java Only') : 'Single Language'}
+                        {currentViewMode === 'single' ? (
+                            currentLanguage === 'python' ? (
+                                <>
+                                    <span className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center text-xs">🐍</span>
+                                    Python
+                                </>
+                            ) : (
+                                <>
+                                    <span className="w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center text-xs">☕</span>
+                                    Java
+                                </>
+                            )
+                        ) : (
+                            <>
+                                <ToggleLeft className="h-4 w-4" />
+                                {L.singleLanguage}
+                            </>
+                        )}
                     </button>
-
-                    {/* Language selector για single mode */}
-                    {currentViewMode === 'single' && (
-                        <div className="flex gap-2">
-                            <button
-                                onClick={() => setCurrentLanguage('python')}
-                                className={`px-3 py-1 text-xs rounded ${
-                                    currentLanguage === 'python'
-                                        ? 'bg-green-600 text-white'
-                                        : 'bg-slate-200 dark:bg-slate-600 text-slate-700 dark:text-slate-300'
-                                }`}
-                            >
-                                Python
-                            </button>
-                            <button
-                                onClick={() => setCurrentLanguage('java')}
-                                className={`px-3 py-1 text-xs rounded ${
-                                    currentLanguage === 'java'
-                                        ? 'bg-orange-600 text-white'
-                                        : 'bg-slate-200 dark:bg-slate-600 text-slate-700 dark:text-slate-300'
-                                }`}
-                            >
-                                Java
-                            </button>
-                        </div>
-                    )}
                 </div>
             </div>
             {/* Search Controls */}
