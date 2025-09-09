@@ -94,56 +94,58 @@ export const ComparativeQuickReference = ({
 
 
                 {/* View Mode Toggle */}
-                <div className="flex items-center justify-center gap-4 p-4 bg-slate-100 dark:bg-slate-800 rounded-lg">
-                    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{L.viewMode}</span>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 p-3 sm:p-4 bg-slate-100 dark:bg-slate-800 rounded-lg">
+                    <span className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 sm:mb-0">{L.viewMode}</span>
 
-                    <button
-                        onClick={() => setCurrentViewMode('comparative')}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm transition-colors ${
-                            currentViewMode === 'comparative'
-                                ? 'bg-blue-600 text-white'
-                                : 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600'
-                        }`}
-                    >
-                        <ToggleRight className="h-4 w-4" />
-                        {L.comparative}
-                    </button>
+                    <div className="flex gap-2 w-full sm:w-auto">
+                        <button
+                            onClick={() => setCurrentViewMode('comparative')}
+                            className={`w-32 sm:w-36 h-10 flex items-center justify-center gap-2 px-3 py-2 rounded-md text-sm transition-colors ${
+                                currentViewMode === 'comparative'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600'
+                            }`}
+                        >
+                            <ToggleRight className="h-4 w-4" />
+                            {L.comparative}
+                        </button>
 
-                    <button
-                        onClick={() => {
-                            if (currentViewMode === 'single') {
-                                // Toggle between Python and Java
-                                setCurrentLanguage(currentLanguage === 'python' ? 'java' : 'python');
-                            } else {
-                                // Switch to single mode
-                                setCurrentViewMode('single');
-                            }
-                        }}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm transition-colors ${
-                            currentViewMode === 'single'
-                                ? 'bg-blue-600 text-white'
-                                : 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600'
-                        }`}
-                    >
-                        {currentViewMode === 'single' ? (
-                            currentLanguage === 'python' ? (
-                                <>
-                                    <span className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center text-xs">🐍</span>
-                                    Python
-                                </>
+                        <button
+                            onClick={() => {
+                                if (currentViewMode === 'single') {
+                                    // Toggle between Python and Java
+                                    setCurrentLanguage(currentLanguage === 'python' ? 'java' : 'python');
+                                } else {
+                                    // Switch to single mode
+                                    setCurrentViewMode('single');
+                                }
+                            }}
+                            className={`w-32 sm:w-36 h-10 flex items-center justify-center gap-2 px-3 py-2 rounded-md text-sm transition-colors ${
+                                currentViewMode === 'single'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600'
+                            }`}
+                        >
+                            {currentViewMode === 'single' ? (
+                                currentLanguage === 'python' ? (
+                                    <>
+                                        <span className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center text-xs">🐍</span>
+                                        Python
+                                    </>
+                                ) : (
+                                    <>
+                                        <span className="w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center text-xs">☕</span>
+                                        Java
+                                    </>
+                                )
                             ) : (
                                 <>
-                                    <span className="w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center text-xs">☕</span>
-                                    Java
+                                    <ToggleLeft className="h-4 w-4" />
+                                    {L.singleLanguage}
                                 </>
-                            )
-                        ) : (
-                            <>
-                                <ToggleLeft className="h-4 w-4" />
-                                {L.singleLanguage}
-                            </>
-                        )}
-                    </button>
+                            )}
+                        </button>
+                    </div>
                 </div>
             </div>
             {/* Search Controls */}
