@@ -1831,6 +1831,1361 @@ export const comparativeCheatSheetData: Record<"el" | "en", ComparativeSection[]
                     ]
                 }
             ]
+        },
+        // Ενότητα 12: Πλειάδες & Σύνολα (Tuples & Sets)
+        {
+            id: "tuples-sets",
+            title: "Πλειάδες & Σύνολα (Tuples & Sets)",
+            icon: "📦",
+            subsections: [
+                {
+                    id: "tuples-basics",
+                    title: "Πλειάδες (Tuples)",
+                    content: [
+                        {
+                            id: "tuple-creation",
+                            concept: "Δημιουργία Πλειάδας (Tuple Creation)",
+                            python: {
+                                syntax: "t = (item1, item2, item3)",
+                                example: "coords = (12, 25, 'Νίκος', True)\nempty = tuple()",
+                                description: "Μη μεταλλάξιμη ακολουθία στοιχείων με παρενθέσεις"
+                            },
+                            java: {
+                                syntax: "// Δεν υπάρχει built-in tuple",
+                                example: "// Χρήση custom class ή records (Java 14+)\nrecord Coords(int x, int y, String name, boolean flag) {}",
+                                description: "Χρήση records ή custom classes για tuple-like δομές"
+                            },
+                            tags: ["tuples", "creation"]
+                        },
+                        {
+                            id: "tuple-single",
+                            concept: "Μονοστοιχεία Πλειάδα (Single Element Tuple)",
+                            python: {
+                                syntax: "t = (item,)  # Κόμμα απαραίτητο!",
+                                example: "single = (42,)\nprint(type(single))  # <class 'tuple'>",
+                                description: "⚠️ Το κόμμα είναι απαραίτητο για single-element tuple"
+                            },
+                            java: {
+                                syntax: "// Δεν υπάρχει αντίστοιχο",
+                                example: "// Χρήση wrapper class ή array\nInteger[] single = {42};",
+                                description: "Χρήση arrays ή wrapper objects"
+                            },
+                            tags: ["tuples", "single"]
+                        },
+                        {
+                            id: "tuple-indexing",
+                            concept: "Πρόσβαση Στοιχείων Πλειάδας (Tuple Indexing)",
+                            python: {
+                                syntax: "tuple[index]",
+                                example: "coords = (10, 20, 'test')\nprint(coords[0])  # 10\nprint(coords[-1])  # 'test'",
+                                description: "Υποστηρίζει positive και negative indexing"
+                            },
+                            java: {
+                                syntax: "record.field() ή array[index]",
+                                example: "// Με record\nCoords c = new Coords(10, 20, \"test\", true);\nSystem.out.println(c.x());  // 10",
+                                description: "Πρόσβαση μέσω accessor methods ή array indexing"
+                            },
+                            tags: ["tuples", "indexing"]
+                        },
+                        {
+                            id: "tuple-unpacking",
+                            concept: "Αποσυσκευασία Πλειάδας (Tuple Unpacking)",
+                            python: {
+                                syntax: "a, b, c = tuple",
+                                example: "point = (10, 20)\nx, y = point\nprint(f\"x={x}, y={y}\")",
+                                description: "✅ Εύκολη ανάθεση πολλαπλών μεταβλητών ταυτόχρονα"
+                            },
+                            java: {
+                                syntax: "// Manual assignment",
+                                example: "// Χρήση accessor methods\nint x = point.x();\nint y = point.y();",
+                                description: "Manual assignment για κάθε μεταβλητή"
+                            },
+                            tags: ["tuples", "unpacking"]
+                        },
+                        {
+                            id: "tuple-methods",
+                            concept: "Μέθοδοι Πλειάδων (Tuple Methods)",
+                            python: {
+                                syntax: "tuple.count(item), tuple.index(item)",
+                                example: "data = (1, 2, 2, 3, 2)\nprint(data.count(2))  # 3\nprint(data.index(2))  # 1",
+                                description: "🧠 Μόνο δύο μέθοδοι λόγω immutability"
+                            },
+                            java: {
+                                syntax: "Collections.frequency(), Arrays utilities",
+                                example: "List<Integer> list = Arrays.asList(1, 2, 2, 3, 2);\nint count = Collections.frequency(list, 2);  // 3",
+                                description: "Χρήση Collections utilities για παρόμοια λειτουργικότητα"
+                            },
+                            tags: ["tuples", "methods"]
+                        }
+                    ]
+                },
+                {
+                    id: "sets-basics",
+                    title: "Σύνολα (Sets)",
+                    content: [
+                        {
+                            id: "set-creation",
+                            concept: "Δημιουργία Συνόλου (Set Creation)",
+                            python: {
+                                syntax: "s = {item1, item2} ή set(iterable)",
+                                example: "numbers = {1, 2, 3, 4}\nfrom_list = set([1, 2, 2, 3])  # {1, 2, 3}\nempty = set()  # ⚠️ ΟΧΙ {}!",
+                                description: "⚠️ Κενό σύνολο: set() ΟΧΙ {} (που είναι dictionary)"
+                            },
+                            java: {
+                                syntax: "new HashSet<>(Arrays.asList(...))",
+                                example: "Set<Integer> numbers = new HashSet<>(Arrays.asList(1, 2, 3, 4));\nSet<Integer> empty = new HashSet<>();",
+                                description: "HashSet για unordered, LinkedHashSet για insertion order"
+                            },
+                            tags: ["sets", "creation"]
+                        },
+                        {
+                            id: "set-add-remove",
+                            concept: "Προσθήκη/Αφαίρεση Στοιχείων (Add/Remove Elements)",
+                            python: {
+                                syntax: "set.add(item), set.remove(item), set.discard(item)",
+                                example: "s = {1, 2, 3}\ns.add(4)  # {1, 2, 3, 4}\ns.remove(2)  # Πετάει KeyError αν δεν υπάρχει\ns.discard(5)  # Δεν πετάει error",
+                                description: "⚠️ remove() πετάει KeyError, discard() δεν πετάει"
+                            },
+                            java: {
+                                syntax: "set.add(item), set.remove(item)",
+                                example: "Set<Integer> s = new HashSet<>(Arrays.asList(1, 2, 3));\ns.add(4);\nboolean removed = s.remove(2);  // true αν υπήρχε",
+                                description: "remove() επιστρέφει boolean, δεν πετάει exception"
+                            },
+                            tags: ["sets", "modification"]
+                        },
+                        {
+                            id: "set-operations",
+                            concept: "Πράξεις Συνόλων (Set Operations)",
+                            python: {
+                                syntax: "set1 | set2, set1 & set2, set1 - set2, set1 ^ set2",
+                                example: "a = {1, 2, 3}\nb = {3, 4, 5}\nprint(a | b)  # {1, 2, 3, 4, 5} ένωση\nprint(a & b)  # {3} τομή\nprint(a - b)  # {1, 2} διαφορά",
+                                description: "⚡ Γρήγοροι operators για μαθηματικές πράξεις συνόλων"
+                            },
+                            java: {
+                                syntax: "Collections utilities + manual operations",
+                                example: "Set<Integer> union = new HashSet<>(a);\nunion.addAll(b);  // Ένωση\nSet<Integer> intersection = new HashSet<>(a);\nintersection.retainAll(b);  // Τομή",
+                                description: "Manual operations με Collections methods"
+                            },
+                            tags: ["sets", "operations"]
+                        },
+                        {
+                            id: "set-methods",
+                            concept: "Μέθοδοι Συνόλων (Set Methods)",
+                            python: {
+                                syntax: "set.union(), set.intersection(), set.difference()",
+                                example: "a = {1, 2, 3}\nb = {3, 4, 5}\nprint(a.union(b))  # {1, 2, 3, 4, 5}\nprint(a.intersection(b))  # {3}\nprint(a.issubset(b))  # False",
+                                description: "Εναλλακτικά των operators με method-based syntax"
+                            },
+                            java: {
+                                syntax: "Manual implementation με Collections",
+                                example: "// Custom utility methods\npublic static <T> Set<T> union(Set<T> a, Set<T> b) {\n    Set<T> result = new HashSet<>(a);\n    result.addAll(b);\n    return result;\n}",
+                                description: "Απαιτείται custom implementation για set operations"
+                            },
+                            tags: ["sets", "methods"]
+                        },
+                        {
+                            id: "set-comprehension",
+                            concept: "Συμπερίληψη Συνόλων (Set Comprehension)",
+                            python: {
+                                syntax: "{expression for item in iterable if condition}",
+                                example: "squares = {x**2 for x in range(10)}\neven_squares = {x**2 for x in range(10) if x % 2 == 0}\nprint(even_squares)  # {0, 4, 16, 36, 64}",
+                                description: "⚡ Functional programming approach για δημιουργία συνόλων"
+                            },
+                            java: {
+                                syntax: "Stream API",
+                                example: "Set<Integer> squares = IntStream.range(0, 10)\n    .map(x -> x * x)\n    .boxed()\n    .collect(Collectors.toSet());",
+                                description: "Java 8+ Stream API για παρόμοια λειτουργικότητα"
+                            },
+                            tags: ["sets", "comprehension"]
+                        }
+                    ]
+                },
+                {
+                    id: "immutable-sets",
+                    title: "Αμετάβλητα Σύνολα (Frozen Sets)",
+                    content: [
+                        {
+                            id: "frozenset-creation",
+                            concept: "Δημιουργία Frozen Set",
+                            python: {
+                                syntax: "frozenset(iterable)",
+                                example: "fs = frozenset([1, 2, 3, 4])\nprint(type(fs))  # <class 'frozenset'>\n# fs.add(5)  # AttributeError!",
+                                description: "🔒 Immutable version του set - χρήσιμο ως dictionary key"
+                            },
+                            java: {
+                                syntax: "Set.of() (Java 9+) ή Collections.unmodifiableSet()",
+                                example: "Set<Integer> immutable = Set.of(1, 2, 3, 4);\n// immutable.add(5);  // UnsupportedOperationException",
+                                description: "Java 9+ Set.of() για immutable sets"
+                            },
+                            tags: ["sets", "immutable"],
+                            notes: "Το frozenset μπορεί να χρησιμοποιηθεί ως κλειδί σε dictionary"
+                        },
+                        {
+                            id: "frozenset-operations",
+                            concept: "Πράξεις με Frozen Sets",
+                            python: {
+                                syntax: "Όλες οι read-only πράξεις συνόλων",
+                                example: "fs1 = frozenset([1, 2, 3])\nfs2 = frozenset([3, 4, 5])\nresult = fs1 | fs2  # frozenset({1, 2, 3, 4, 5})",
+                                description: "✅ Υποστηρίζει όλες τις πράξεις εκτός από τροποποιήσεις"
+                            },
+                            java: {
+                                syntax: "Immutable set operations",
+                                example: "Set<Integer> fs1 = Set.of(1, 2, 3);\n// Manual operations χωρίς τροποποίηση",
+                                description: "Read-only operations με immutable collections"
+                            },
+                            tags: ["sets", "immutable", "operations"]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "dictionaries-comprehensive",
+            title: "Λεξικά (Dictionaries)",
+            icon: "📚",
+            subsections: [
+                {
+                    id: "dict-creation",
+                    title: "Δημιουργία Λεξικών (Dictionary Creation)",
+                    content: [
+                        {
+                            id: "dict-literals",
+                            concept: "Δημιουργία με Literals",
+                            python: {
+                                syntax: "d = {'key': 'value', 'key2': 'value2'}",
+                                example: "student = {'name': 'Αλέξανδρος', 'age': 20, 'grades': [18, 19, 17]}\nempty = {}  # Κενό λεξικό",
+                                description: "Καλλυγραφικές άγκυλες {} με ζεύγη key:value"
+                            },
+                            java: {
+                                syntax: "new HashMap<>() με put() methods",
+                                example: "Map<String, Object> student = new HashMap<>();\nstudent.put(\"name\", \"Αλέξανδρος\");\nstudent.put(\"age\", 20);",
+                                description: "HashMap για unordered, LinkedHashMap για insertion order"
+                            },
+                            tags: ["dictionaries", "creation"]
+                        },
+                        {
+                            id: "dict-constructor",
+                            concept: "Δημιουργία με Constructor",
+                            python: {
+                                syntax: "dict(key1=value1, key2=value2)",
+                                example: "student = dict(name='Μαρία', age=19, city='Αθήνα')\nfrom_pairs = dict([('a', 1), ('b', 2)])",
+                                description: "dict() constructor με keyword arguments ή tuples"
+                            },
+                            java: {
+                                syntax: "Map.of() (Java 9+) ή constructor + put()",
+                                example: "Map<String, String> student = Map.of(\n    \"name\", \"Μαρία\",\n    \"city\", \"Αθήνα\"\n);",
+                                description: "Java 9+ Map.of() για immutable maps"
+                            },
+                            tags: ["dictionaries", "creation"]
+                        },
+                        {
+                            id: "dict-comprehension",
+                            concept: "Συμπερίληψη Λεξικών (Dict Comprehension)",
+                            python: {
+                                syntax: "{key_expr: value_expr for item in iterable}",
+                                example: "squares = {x: x**2 for x in range(5)}\nfiltered = {k: v for k, v in data.items() if v > 10}\nprint(squares)  # {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}",
+                                description: "⚡ Functional approach για δημιουργία λεξικών"
+                            },
+                            java: {
+                                syntax: "Stream API με Collectors.toMap()",
+                                example: "Map<Integer, Integer> squares = IntStream.range(0, 5)\n    .boxed()\n    .collect(Collectors.toMap(\n        x -> x,\n        x -> x * x\n    ));",
+                                description: "Java 8+ Streams για παρόμοια λειτουργικότητα"
+                            },
+                            tags: ["dictionaries", "comprehension"]
+                        }
+                    ]
+                },
+                {
+                    id: "dict-access",
+                    title: "Πρόσβαση σε Λεξικά (Dictionary Access)",
+                    content: [
+                        {
+                            id: "dict-indexing",
+                            concept: "Πρόσβαση με Κλειδιά (Key Access)",
+                            python: {
+                                syntax: "dict[key] ή dict.get(key, default)",
+                                example: "student = {'name': 'Νίκος', 'age': 22}\nprint(student['name'])  # 'Νίκος'\nprint(student.get('city', 'Αθήνα'))  # 'Αθήνα' (default)",
+                                description: "⚠️ [] πετάει KeyError, get() επιστρέφει default"
+                            },
+                            java: {
+                                syntax: "map.get(key) ή map.getOrDefault(key, default)",
+                                example: "Map<String, Object> student = Map.of(\"name\", \"Νίκος\", \"age\", 22);\nString name = (String) student.get(\"name\");\nString city = (String) student.getOrDefault(\"city\", \"Αθήνα\");",
+                                description: "get() επιστρέφει null αν δεν υπάρχει το κλειδί"
+                            },
+                            tags: ["dictionaries", "access"]
+                        },
+                        {
+                            id: "dict-modification",
+                            concept: "Τροποποίηση Τιμών (Value Modification)",
+                            python: {
+                                syntax: "dict[key] = new_value",
+                                example: "student['age'] = 23  # Ενημέρωση υπάρχοντος\nstudent['city'] = 'Θεσσαλονίκη'  # Προσθήκη νέου κλειδιού",
+                                description: "Αυτόματη προσθήκη νέων κλειδιών αν δεν υπάρχουν"
+                            },
+                            java: {
+                                syntax: "map.put(key, value)",
+                                example: "Map<String, Object> student = new HashMap<>();\nstudent.put(\"age\", 23);  // Ενημέρωση\nstudent.put(\"city\", \"Θεσσαλονίκη\");  // Προσθήκη",
+                                description: "put() για ενημέρωση ή προσθήκη"
+                            },
+                            tags: ["dictionaries", "modification"]
+                        },
+                        {
+                            id: "dict-membership",
+                            concept: "Έλεγχος Ύπαρξης (Membership Testing)",
+                            python: {
+                                syntax: "key in dict, key not in dict",
+                                example: "if 'email' in student:\n    print(student['email'])\nelse:\n    print('Δεν υπάρχει email')",
+                                description: "✅ Γρήγορος έλεγχος ύπαρξης κλειδιού"
+                            },
+                            java: {
+                                syntax: "map.containsKey(key)",
+                                example: "if (student.containsKey(\"email\")) {\n    System.out.println(student.get(\"email\"));\n} else {\n    System.out.println(\"Δεν υπάρχει email\");\n}",
+                                description: "containsKey() για έλεγχο ύπαρξης κλειδιού"
+                            },
+                            tags: ["dictionaries", "membership"]
+                        }
+                    ]
+                },
+                {
+                    id: "dict-methods",
+                    title: "Μέθοδοι Λεξικών (Dictionary Methods)",
+                    content: [
+                        {
+                            id: "dict-keys-values",
+                            concept: "Κλειδιά και Τιμές (Keys and Values)",
+                            python: {
+                                syntax: "dict.keys(), dict.values(), dict.items()",
+                                example: "student = {'name': 'Άννα', 'age': 21, 'city': 'Πάτρα'}\nprint(list(student.keys()))    # ['name', 'age', 'city']\nprint(list(student.values()))  # ['Άννα', 21, 'Πάτρα']\nprint(list(student.items()))   # [('name', 'Άννα'), ...]",
+                                description: "🧠 Επιστρέφουν view objects, όχι λίστες"
+                            },
+                            java: {
+                                syntax: "map.keySet(), map.values(), map.entrySet()",
+                                example: "Set<String> keys = student.keySet();\nCollection<Object> values = student.values();\nSet<Map.Entry<String, Object>> entries = student.entrySet();",
+                                description: "Set για κλειδιά, Collection για τιμές, Set για entries"
+                            },
+                            tags: ["dictionaries", "methods", "iteration"]
+                        },
+                        {
+                            id: "dict-update",
+                            concept: "Ενημέρωση Λεξικού (Dictionary Update)",
+                            python: {
+                                syntax: "dict.update(other_dict)",
+                                example: "student.update({'grade': 'A', 'age': 22})\n# Ενημερώνει existing keys και προσθέτει νέα",
+                                description: "Συγχωνεύει λεξικά, overwriting υπάρχοντα κλειδιά"
+                            },
+                            java: {
+                                syntax: "map.putAll(other_map)",
+                                example: "Map<String, Object> updates = Map.of(\"grade\", \"A\", \"age\", 22);\nstudent.putAll(updates);",
+                                description: "putAll() για bulk updates"
+                            },
+                            tags: ["dictionaries", "methods", "update"]
+                        },
+                        {
+                            id: "dict-pop",
+                            concept: "Αφαίρεση με Επιστροφή (Pop Operation)",
+                            python: {
+                                syntax: "dict.pop(key, default), dict.popitem()",
+                                example: "age = student.pop('age', 0)  # Αφαιρεί και επιστρέφει\nlast_item = student.popitem()  # Αφαιρεί τυχαίο ζεύγος\nprint(f\"Removed age: {age}\")",
+                                description: "pop() για συγκεκριμένο κλειδί, popitem() για τυχαίο"
+                            },
+                            java: {
+                                syntax: "map.remove(key)",
+                                example: "Object age = student.remove(\"age\");\n// Δεν υπάρχει popitem() equivalent",
+                                description: "remove() επιστρέφει την τιμή που αφαιρέθηκε"
+                            },
+                            tags: ["dictionaries", "methods", "removal"]
+                        },
+                        {
+                            id: "dict-setdefault",
+                            concept: "Ρύθμιση Προεπιλογής (Set Default)",
+                            python: {
+                                syntax: "dict.setdefault(key, default_value)",
+                                example: "student.setdefault('hobbies', []).append('ποδόσφαιρο')\n# Αν δεν υπάρχει 'hobbies', δημιουργεί κενή λίστα",
+                                description: "✅ Ιδιωματική Python για lazy initialization"
+                            },
+                            java: {
+                                syntax: "map.computeIfAbsent(key, function)",
+                                example: "student.computeIfAbsent(\"hobbies\", k -> new ArrayList<>());\n((List<String>) student.get(\"hobbies\")).add(\"ποδόσφαιρο\");",
+                                description: "Java 8+ computeIfAbsent() για lazy initialization"
+                            },
+                            tags: ["dictionaries", "methods", "initialization"]
+                        },
+                        {
+                            id: "dict-clear-copy",
+                            concept: "Καθαρισμός και Αντιγραφή (Clear and Copy)",
+                            python: {
+                                syntax: "dict.clear(), dict.copy()",
+                                example: "backup = student.copy()  # Shallow copy\nstudent.clear()  # Αδειάζει το λεξικό\nprint(len(student))  # 0",
+                                description: "clear() αδειάζει, copy() δημιουργεί shallow copy"
+                            },
+                            java: {
+                                syntax: "map.clear(), new HashMap<>(map)",
+                                example: "Map<String, Object> backup = new HashMap<>(student);\nstudent.clear();",
+                                description: "Constructor για copy, clear() για αδειάζι"
+                            },
+                            tags: ["dictionaries", "methods", "utility"]
+                        }
+                    ]
+                },
+                {
+                    id: "dict-iteration",
+                    title: "Επανάληψη σε Λεξικά (Dictionary Iteration)",
+                    content: [
+                        {
+                            id: "dict-iterate-keys",
+                            concept: "Επανάληψη σε Κλειδιά (Iterate Over Keys)",
+                            python: {
+                                syntax: "for key in dict:",
+                                example: "for subject in grades:\n    print(f\"Μάθημα: {subject}\")\n# Ή ρητά: for key in grades.keys():",
+                                description: "Default iteration είναι πάνω στα κλειδιά"
+                            },
+                            java: {
+                                syntax: "for (KeyType key : map.keySet())",
+                                example: "for (String subject : grades.keySet()) {\n    System.out.println(\"Μάθημα: \" + subject);\n}",
+                                description: "Enhanced for loop με keySet()"
+                            },
+                            tags: ["dictionaries", "iteration", "keys"]
+                        },
+                        {
+                            id: "dict-iterate-values",
+                            concept: "Επανάληψη σε Τιμές (Iterate Over Values)",
+                            python: {
+                                syntax: "for value in dict.values():",
+                                example: "for grade in grades.values():\n    print(f\"Βαθμός: {grade}\")",
+                                description: "Πρόσβαση μόνο στις τιμές χωρίς τα κλειδιά"
+                            },
+                            java: {
+                                syntax: "for (ValueType value : map.values())",
+                                example: "for (Integer grade : grades.values()) {\n    System.out.println(\"Βαθμός: \" + grade);\n}",
+                                description: "Enhanced for loop με values()"
+                            },
+                            tags: ["dictionaries", "iteration", "values"]
+                        },
+                        {
+                            id: "dict-iterate-items",
+                            concept: "Επανάληψη σε Ζεύγη (Iterate Over Key-Value Pairs)",
+                            python: {
+                                syntax: "for key, value in dict.items():",
+                                example: "for subject, grade in grades.items():\n    print(f\"{subject}: {grade}\")",
+                                description: "Πιο αποδοτικό από την ξεχωριστή πρόσβαση σε κλειδιά/τιμές"
+                            },
+                            java: {
+                                syntax: "for (Map.Entry<K, V> entry : map.entrySet())",
+                                example: "for (Map.Entry<String, Integer> entry : grades.entrySet()) {\n    System.out.println(entry.getKey() + \": \" + entry.getValue());\n}",
+                                description: "Entry objects για πρόσβαση σε key-value pairs"
+                            },
+                            tags: ["dictionaries", "iteration", "pairs"]
+                        }
+                    ]
+                },
+                {
+                    id: "advanced-dict",
+                    title: "Προχωρημένα Λεξικά (Advanced Dictionary Concepts)",
+                    content: [
+                        {
+                            id: "defaultdict",
+                            concept: "DefaultDict (Collections Module)",
+                            python: {
+                                syntax: "from collections import defaultdict",
+                                example: "from collections import defaultdict\ndd = defaultdict(list)\ndd['fruits'].append('apple')\n# Αυτόματα δημιουργεί κενή λίστα για νέα κλειδιά",
+                                description: "Αυτόματη δημιουργία default values για νέα κλειδιά"
+                            },
+                            java: {
+                                syntax: "computeIfAbsent() pattern",
+                                example: "Map<String, List<String>> map = new HashMap<>();\nmap.computeIfAbsent(\"fruits\", k -> new ArrayList<>()).add(\"apple\");",
+                                description: "computeIfAbsent() για παρόμοια συμπεριφορά"
+                            },
+                            tags: ["dictionaries", "advanced", "collections"]
+                        },
+                        {
+                            id: "counter",
+                            concept: "Counter (Collections Module)",
+                            python: {
+                                syntax: "from collections import Counter",
+                                example: "from collections import Counter\ntext = 'hello world'\ncounter = Counter(text)\nprint(counter)  # Counter({'l': 3, 'o': 2, ...})\nprint(counter.most_common(2))  # [('l', 3), ('o', 2)]",
+                                description: "Ειδικό λεξικό για μέτρηση συχνότητας στοιχείων"
+                            },
+                            java: {
+                                syntax: "Manual counting με HashMap",
+                                example: "Map<Character, Integer> counter = new HashMap<>();\nfor (char c : text.toCharArray()) {\n    counter.merge(c, 1, Integer::sum);\n}",
+                                description: "merge() method για counting pattern"
+                            },
+                            tags: ["dictionaries", "advanced", "counting"]
+                        },
+                        {
+                            id: "ordereddict",
+                            concept: "OrderedDict (Insertion Order)",
+                            python: {
+                                syntax: "from collections import OrderedDict",
+                                example: "from collections import OrderedDict\nod = OrderedDict([('first', 1), ('second', 2)])\n# Python 3.7+: Τα κανονικά dict διατηρούν σειρά",
+                                description: "Από Python 3.7+, τα κανονικά dict διατηρούν insertion order"
+                            },
+                            java: {
+                                syntax: "LinkedHashMap",
+                                example: "Map<String, Integer> ordered = new LinkedHashMap<>();\nordered.put(\"first\", 1);\nordered.put(\"second\", 2);\n// Διατηρεί insertion order",
+                                description: "LinkedHashMap για ordered dictionary behavior"
+                            },
+                            tags: ["dictionaries", "advanced", "ordering"]
+                        }
+                    ]
+                }
+            ]
+        },
+        // Ενότητα 14: Αντικειμενοστραφής Προγραμματισμός (OOP)
+        {
+            id: "object-oriented-programming",
+            title: "Αντικειμενοστραφής Προγραμματισμός (OOP)",
+            icon: "🏗️",
+            subsections: [
+                {
+                    id: "classes-basics",
+                    title: "Κλάσεις και Αντικείμενα (Classes & Objects)",
+                    content: [
+                        {
+                            id: "class-definition",
+                            concept: "Ορισμός Κλάσης (Class Definition)",
+                            python: {
+                                syntax: "class ClassName:\n    def __init__(self, params):\n        # constructor",
+                                example: "class Student:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n    \n    def introduce(self):\n        return f\"Είμαι ο {self.name}\"",
+                                description: "__init__ είναι ο constructor, self αναφέρεται στο instance"
+                            },
+                            java: {
+                                syntax: "public class ClassName {\n    public ClassName(params) {\n        // constructor\n    }\n}",
+                                example: "public class Student {\n    private String name;\n    private int age;\n    \n    public Student(String name, int age) {\n        this.name = name;\n        this.age = age;\n    }\n    \n    public String introduce() {\n        return \"Είμαι ο \" + name;\n    }\n}",
+                                description: "Explicit access modifiers, this αναφέρεται στο instance"
+                            },
+                            tags: ["oop", "classes", "basic"]
+                        },
+                        {
+                            id: "object-creation",
+                            concept: "Δημιουργία Αντικειμένων (Object Creation)",
+                            python: {
+                                syntax: "instance = ClassName(arguments)",
+                                example: "student1 = Student('Νίκος', 20)\nstudent2 = Student('Μαρία', 19)\nprint(student1.introduce())",
+                                description: "Απευθείας κλήση της κλάσης για instantiation"
+                            },
+                            java: {
+                                syntax: "ClassName instance = new ClassName(arguments)",
+                                example: "Student student1 = new Student(\"Νίκος\", 20);\nStudent student2 = new Student(\"Μαρία\", 19);\nSystem.out.println(student1.introduce());",
+                                description: "Χρήση new keyword για object creation"
+                            },
+                            tags: ["oop", "objects", "instantiation"]
+                        },
+                        {
+                            id: "instance-variables",
+                            concept: "Μεταβλητές Instanc (Instance Variables)",
+                            python: {
+                                syntax: "self.variable_name = value",
+                                example: "class Product:\n    def __init__(self, name, price):\n        self.name = name        # public by convention\n        self._price = price     # protected (convention)\n        self.__id = 12345      # private (name mangling)",
+                                description: "⚠️ Δεν υπάρχουν πραγματικά private fields - μόνο conventions"
+                            },
+                            java: {
+                                syntax: "private Type variableName;",
+                                example: "public class Product {\n    private String name;\n    protected double price;  // protected\n    public int stock;        // public\n    \n    // getters/setters\n    public String getName() { return name; }\n    public void setName(String name) { this.name = name; }\n}",
+                                description: "🔒 Πραγματικά access modifiers: private, protected, public"
+                            },
+                            tags: ["oop", "variables", "encapsulation"]
+                        },
+                        {
+                            id: "class-variables",
+                            concept: "Μεταβλητές Κλάσης (Class Variables)",
+                            python: {
+                                syntax: "class ClassName:\n    class_var = value",
+                                example: "class Student:\n    school_name = 'Πανεπιστήμιο Αθηνών'  # class variable\n    student_count = 0\n    \n    def __init__(self, name):\n        self.name = name\n        Student.student_count += 1",
+                                description: "Κοινές μεταβλητές για όλα τα instances της κλάσης"
+                            },
+                            java: {
+                                syntax: "static Type variableName = value;",
+                                example: "public class Student {\n    public static String schoolName = \"Πανεπιστήμιο Αθηνών\";\n    private static int studentCount = 0;\n    \n    public Student(String name) {\n        this.name = name;\n        studentCount++;\n    }\n}",
+                                description: "static keyword για class-level variables"
+                            },
+                            tags: ["oop", "static", "class-variables"]
+                        }
+                    ]
+                },
+                {
+                    id: "inheritance",
+                    title: "Κληρονομικότητα (Inheritance)",
+                    content: [
+                        {
+                            id: "basic-inheritance",
+                            concept: "Βασική Κληρονομικότητα (Basic Inheritance)",
+                            python: {
+                                syntax: "class Child(Parent):",
+                                example: "class Animal:\n    def __init__(self, name):\n        self.name = name\n    def speak(self):\n        return f\"{self.name} κάνει ήχο\"\n\nclass Dog(Animal):\n    def speak(self):\n        return f\"{self.name} γαυγίζει\"",
+                                description: "Η παιδική κλάση κληρονομεί όλα τα χαρακτηριστικά της γονικής"
+                            },
+                            java: {
+                                syntax: "class Child extends Parent",
+                                example: "class Animal {\n    protected String name;\n    public Animal(String name) { this.name = name; }\n    public String speak() { return name + \" κάνει ήχο\"; }\n}\n\nclass Dog extends Animal {\n    public Dog(String name) { super(name); }\n    @Override\n    public String speak() { return name + \" γαυγίζει\"; }\n}",
+                                description: "extends keyword για inheritance, @Override annotation"
+                            },
+                            tags: ["oop", "inheritance", "basic"]
+                        },
+                        {
+                            id: "super-method",
+                            concept: "Κλήση Μεθόδων Γονικής Κλάσης (Super Method)",
+                            python: {
+                                syntax: "super().method_name()",
+                                example: "class Employee(Person):\n    def __init__(self, name, age, salary):\n        super().__init__(name, age)  # Κλήση γονικού constructor\n        self.salary = salary\n    \n    def introduce(self):\n        return super().introduce() + f\" και εργάζομαι\"",
+                                description: "super() για πρόσβαση στις μεθόδους της γονικής κλάσης"
+                            },
+                            java: {
+                                syntax: "super.methodName()",
+                                example: "class Employee extends Person {\n    private double salary;\n    \n    public Employee(String name, int age, double salary) {\n        super(name, age);  // Κλήση γονικού constructor\n        this.salary = salary;\n    }\n    \n    @Override\n    public String introduce() {\n        return super.introduce() + \" και εργάζομαι\";\n    }\n}",
+                                description: "super keyword για πρόσβαση στη γονική κλάση"
+                            },
+                            tags: ["oop", "inheritance", "super"]
+                        },
+                        {
+                            id: "multiple-inheritance",
+                            concept: "Πολλαπλή Κληρονομικότητα (Multiple Inheritance)",
+                            python: {
+                                syntax: "class Child(Parent1, Parent2):",
+                                example: "class Flyable:\n    def fly(self):\n        return \"Πετάω\"\n\nclass Swimmable:\n    def swim(self):\n        return \"Κολυμπάω\"\n\nclass Duck(Animal, Flyable, Swimmable):\n    def speak(self):\n        return f\"{self.name} κάνει πάπ πάπ\"",
+                                description: "✅ Python υποστηρίζει πολλαπλή κληρονομικότητα - MRO (Method Resolution Order)"
+                            },
+                            java: {
+                                syntax: "// Δεν υπάρχει πολλαπλή κληρονομικότητα",
+                                example: "// Χρήση interfaces για παρόμοια λειτουργικότητα\ninterface Flyable { void fly(); }\ninterface Swimmable { void swim(); }\n\nclass Duck extends Animal implements Flyable, Swimmable {\n    public void fly() { /* implementation */ }\n    public void swim() { /* implementation */ }\n}",
+                                description: "❌ Μόνο single inheritance, αλλά multiple interface implementation"
+                            },
+                            tags: ["oop", "inheritance", "multiple"]
+                        },
+                        {
+                            id: "method-resolution",
+                            concept: "Method Resolution Order (MRO)",
+                            python: {
+                                syntax: "ClassName.__mro__ ή ClassName.mro()",
+                                example: "class A: pass\nclass B(A): pass\nclass C(A): pass\nclass D(B, C): pass\n\nprint(D.__mro__)\n# (<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.A'>, <class 'object'>)",
+                                description: "🧠 C3 linearization algorithm για επίλυση κληρονομικότητας"
+                            },
+                            java: {
+                                syntax: "// Δεν εφαρμόζεται - single inheritance",
+                                example: "// Με interfaces:\n// 1. Πρώτα η κλάση\n// 2. Μετά τα interfaces με τη σειρά δήλωσης\n// 3. Default methods από interfaces",
+                                description: "Απλούστερη επίλυση λόγω single inheritance"
+                            },
+                            tags: ["oop", "inheritance", "mro"]
+                        }
+                    ]
+                },
+                {
+                    id: "encapsulation",
+                    title: "Ενθυλάκωση (Encapsulation)",
+                    content: [
+                        {
+                            id: "access-modifiers",
+                            concept: "Επίπεδα Πρόσβασης (Access Levels)",
+                            python: {
+                                syntax: "public, _protected, __private (conventions)",
+                                example: "class BankAccount:\n    def __init__(self, balance):\n        self.account_number = '12345'    # public\n        self._balance = balance          # protected (convention)\n        self.__pin = 1234               # private (name mangling)\n    \n    def get_balance(self):\n        return self._balance",
+                                description: "⚠️ Conventions μόνο - δεν υπάρχει αληθινή private πρόσβαση"
+                            },
+                            java: {
+                                syntax: "public, protected, private, package-private",
+                                example: "public class BankAccount {\n    public String accountNumber;     // public\n    protected double balance;        // protected\n    private int pin;                // private\n    String bankName;               // package-private\n    \n    public double getBalance() {\n        return balance;\n    }\n}",
+                                description: "🔒 Αληθινοί access modifiers που επιβάλλονται από τη γλώσσα"
+                            },
+                            tags: ["oop", "encapsulation", "access"]
+                        },
+                        {
+                            id: "properties",
+                            concept: "Properties (Getters/Setters)",
+                            python: {
+                                syntax: "@property, @setter decorators",
+                                example: "class Temperature:\n    def __init__(self):\n        self._celsius = 0\n    \n    @property\n    def celsius(self):\n        return self._celsius\n    \n    @celsius.setter\n    def celsius(self, value):\n        if value < -273.15:\n            raise ValueError(\"Θερμοκρασία κάτω από το απόλυτο μηδέν!\")\n        self._celsius = value",
+                                description: "✅ Pythonic way για getters/setters με validation"
+                            },
+                            java: {
+                                syntax: "public getField(), public setField()",
+                                example: "public class Temperature {\n    private double celsius;\n    \n    public double getCelsius() {\n        return celsius;\n    }\n    \n    public void setCelsius(double celsius) {\n        if (celsius < -273.15) {\n            throw new IllegalArgumentException(\"Θερμοκρασία κάτω από το απόλυτο μηδέν!\");\n        }\n        this.celsius = celsius;\n    }\n}",
+                                description: "Παραδοσιακό getter/setter pattern"
+                            },
+                            tags: ["oop", "encapsulation", "properties"]
+                        }
+                    ]
+                },
+                {
+                    id: "polymorphism",
+                    title: "Πολυμορφισμός (Polymorphism)",
+                    content: [
+                        {
+                            id: "method-overriding",
+                            concept: "Επικάλυψη Μεθόδων (Method Overriding)",
+                            python: {
+                                syntax: "Αυτόματη επικάλυψη - δεν χρειάζεται annotation",
+                                example: "class Shape:\n    def area(self):\n        return 0\n\nclass Circle(Shape):\n    def __init__(self, radius):\n        self.radius = radius\n    \n    def area(self):  # Επικαλύπτει τη γονική μέθοδο\n        return 3.14159 * self.radius ** 2",
+                                description: "Αυτόματη επικάλυψη - runtime binding"
+                            },
+                            java: {
+                                syntax: "@Override annotation (προαιρετικό αλλά συνιστώμενο)",
+                                example: "class Shape {\n    public double area() { return 0; }\n}\n\nclass Circle extends Shape {\n    private double radius;\n    \n    public Circle(double radius) { this.radius = radius; }\n    \n    @Override\n    public double area() {\n        return Math.PI * radius * radius;\n    }\n}",
+                                description: "@Override για compile-time checking και documentation"
+                            },
+                            tags: ["oop", "polymorphism", "overriding"]
+                        },
+                        {
+                            id: "duck-typing",
+                            concept: "Duck Typing",
+                            python: {
+                                syntax: "\"If it walks like a duck and quacks like a duck...\"",
+                                example: "def make_sound(animal):\n    return animal.speak()  # Δεν ελέγχει τον τύπο!\n\n# Οποιοδήποτε object με speak() method θα δουλέψει\nmake_sound(Dog(\"Rex\"))     # Δουλεύει\nmake_sound(Cat(\"Whiskers\")) # Δουλεύει επίσης",
+                                description: "⚡ Structural typing - σημαντική είναι η συμπεριφορά, όχι ο τύπος"
+                            },
+                            java: {
+                                syntax: "Απαιτείται explicit typing μέσω interfaces/inheritance",
+                                example: "interface Animal {\n    String speak();\n}\n\npublic void makeSound(Animal animal) {\n    System.out.println(animal.speak());\n}\n\n// Μόνο Animal implementations θα δουλέψουν",
+                                description: "🔒 Static typing - πρέπει να implement interface ή extend class"
+                            },
+                            tags: ["oop", "polymorphism", "duck-typing"]
+                        },
+                        {
+                            id: "abstract-classes",
+                            concept: "Αφηρημένες Κλάσεις (Abstract Classes)",
+                            python: {
+                                syntax: "from abc import ABC, abstractmethod",
+                                example: "from abc import ABC, abstractmethod\n\nclass Vehicle(ABC):\n    @abstractmethod\n    def start_engine(self):\n        pass\n    \n    def stop_engine(self):  # Concrete method\n        print(\"Μηχανή σβησμένη\")\n\nclass Car(Vehicle):\n    def start_engine(self):\n        print(\"Μηχανή αυτοκινήτου ξεκινημένη\")",
+                                description: "ABC module για abstract base classes - δεν μπορούν να instantiate"
+                            },
+                            java: {
+                                syntax: "abstract class ClassName",
+                                example: "abstract class Vehicle {\n    public abstract void startEngine();  // abstract method\n    \n    public void stopEngine() {           // concrete method\n        System.out.println(\"Μηχανή σβησμένη\");\n    }\n}\n\nclass Car extends Vehicle {\n    @Override\n    public void startEngine() {\n        System.out.println(\"Μηχανή αυτοκινήτου ξεκινημένη\");\n    }\n}",
+                                description: "Built-in abstract classes - δεν μπορούν να instantiate"
+                            },
+                            tags: ["oop", "abstract", "inheritance"]
+                        }
+                    ]
+                },
+                {
+                    id: "magic-methods",
+                    title: "Μαγικές Μέθοδοι (Magic Methods)",
+                    content: [
+                        {
+                            id: "string-representation",
+                            concept: "String Representation",
+                            python: {
+                                syntax: "__str__(self), __repr__(self)",
+                                example: "class Point:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n    \n    def __str__(self):   # Για τους χρήστες\n        return f\"({self.x}, {self.y})\"\n    \n    def __repr__(self):  # Για developers\n        return f\"Point({self.x}, {self.y})\"",
+                                description: "__str__ για user-friendly, __repr__ για debugging"
+                            },
+                            java: {
+                                syntax: "toString() method",
+                                example: "public class Point {\n    private int x, y;\n    \n    public Point(int x, int y) {\n        this.x = x; this.y = y;\n    }\n    \n    @Override\n    public String toString() {\n        return \"(\" + x + \", \" + y + \")\";\n    }\n}",
+                                description: "Override του toString() method από Object class"
+                            },
+                            tags: ["oop", "magic-methods", "string"]
+                        },
+                        {
+                            id: "comparison-methods",
+                            concept: "Σύγκριση Αντικειμένων (Object Comparison)",
+                            python: {
+                                syntax: "__eq__, __lt__, __gt__, __le__, __ge__",
+                                example: "class Student:\n    def __init__(self, name, grade):\n        self.name = name\n        self.grade = grade\n    \n    def __eq__(self, other):\n        return self.grade == other.grade\n    \n    def __lt__(self, other):\n        return self.grade < other.grade",
+                                description: "Επιτρέπει χρήση των ==, <, >, <=, >= operators"
+                            },
+                            java: {
+                                syntax: "equals(), compareTo(), Comparable interface",
+                                example: "public class Student implements Comparable<Student> {\n    private String name;\n    private int grade;\n    \n    @Override\n    public boolean equals(Object obj) {\n        if (obj instanceof Student) {\n            return this.grade == ((Student) obj).grade;\n        }\n        return false;\n    }\n    \n    @Override\n    public int compareTo(Student other) {\n        return Integer.compare(this.grade, other.grade);\n    }\n}",
+                                description: "equals() και Comparable interface για comparisons"
+                            },
+                            tags: ["oop", "magic-methods", "comparison"]
+                        }
+                    ]
+                }
+            ]
+        },
+        // Ενότητα 15: Προχωρημένες Συναρτήσεις (Advanced Functions)
+        {
+            id: "advanced-functions",
+            title: "Προχωρημένες Συναρτήσεις (Advanced Functions)",
+            icon: "⚡",
+            subsections: [
+                {
+                    id: "lambda-functions",
+                    title: "Συναρτήσεις Ανώνυμες (Lambda Functions)",
+                    content: [
+                        {
+                            id: "lambda-basics",
+                            concept: "Βασικές Lambda Συναρτήσεις (Basic Lambda Functions)",
+                            python: {
+                                syntax: "lambda parameters: expression",
+                                example: "square = lambda x: x**2\nprint(square(5))  # 25\n\nadd = lambda x, y: x + y\nprint(add(3, 4))  # 7",
+                                description: "⚡ Σύντομος τρόπος για απλές συναρτήσεις μίας γραμμής"
+                            },
+                            java: {
+                                syntax: "(parameters) -> expression",
+                                example: "Function<Integer, Integer> square = x -> x * x;\nSystem.out.println(square.apply(5));  // 25\n\nBinaryOperator<Integer> add = (x, y) -> x + y;\nSystem.out.println(add.apply(3, 4));  // 7",
+                                description: "Java 8+ lambda expressions με functional interfaces"
+                            },
+                            tags: ["functions", "lambda", "anonymous"]
+                        },
+                        {
+                            id: "lambda-with-functions",
+                            concept: "Lambda με Built-in Συναρτήσεις (Lambda with Built-ins)",
+                            python: {
+                                syntax: "map(), filter(), sorted() με lambda",
+                                example: "numbers = [1, 2, 3, 4, 5]\nsquares = list(map(lambda x: x**2, numbers))\nevens = list(filter(lambda x: x % 2 == 0, numbers))\nsorted_desc = sorted(numbers, key=lambda x: -x)",
+                                description: "✅ Συνηθισμένη χρήση με functional programming patterns"
+                            },
+                            java: {
+                                syntax: "Stream API με lambda expressions",
+                                example: "List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);\nList<Integer> squares = numbers.stream()\n    .map(x -> x * x)\n    .collect(Collectors.toList());\nList<Integer> evens = numbers.stream()\n    .filter(x -> x % 2 == 0)\n    .collect(Collectors.toList());",
+                                description: "Stream API για functional operations"
+                            },
+                            tags: ["functions", "lambda", "functional"]
+                        },
+                        {
+                            id: "lambda-limitations",
+                            concept: "Περιορισμοί Lambda (Lambda Limitations)",
+                            python: {
+                                syntax: "Μόνο expressions, όχι statements",
+                                example: "# ✅ Δουλεύει\nvalid = lambda x: x if x > 0 else -x\n\n# ❌ Δεν δουλεύει\n# invalid = lambda x: print(x); return x**2",
+                                description: "⚠️ Δεν μπορούν να περιέχουν statements (print, assignments, κλπ)"
+                            },
+                            java: {
+                                syntax: "Περιορισμένες σε single expressions",
+                                example: "// ✅ Δουλεύει\nFunction<Integer, Integer> abs = x -> x > 0 ? x : -x;\n\n// ❌ Για πολύπλοκη λογική χρειάζεται method reference\n// ή anonymous class",
+                                description: "Single expression ή block με explicit return"
+                            },
+                            tags: ["functions", "lambda", "limitations"]
+                        }
+                    ]
+                },
+                {
+                    id: "decorators",
+                    title: "Διακοσμητές (Decorators)",
+                    content: [
+                        {
+                            id: "basic-decorators",
+                            concept: "Βασικοί Διακοσμητές (Basic Decorators)",
+                            python: {
+                                syntax: "@decorator_name",
+                                example: "def timing_decorator(func):\n    import time\n    def wrapper(*args, **kwargs):\n        start = time.time()\n        result = func(*args, **kwargs)\n        print(f\"Χρόνος: {time.time() - start:.2f}s\")\n        return result\n    return wrapper\n\n@timing_decorator\ndef slow_function():\n    import time\n    time.sleep(1)\n    return \"Done\"",
+                                description: "🧠 Higher-order functions που τροποποιούν άλλες συναρτήσεις"
+                            },
+                            java: {
+                                syntax: "Δεν υπάρχουν built-in decorators",
+                                example: "// Χρήση annotations (metadata μόνο)\n@Override\npublic String toString() { ... }\n\n// Για decorator pattern: Wrapper classes\npublic class TimingWrapper {\n    private final Runnable target;\n    \n    public void execute() {\n        long start = System.currentTimeMillis();\n        target.run();\n        System.out.println(\"Χρόνος: \" + \n            (System.currentTimeMillis() - start) + \"ms\");\n    }\n}",
+                                description: "Annotations για metadata, Wrapper pattern για decoration"
+                            },
+                            tags: ["functions", "decorators", "metaprogramming"]
+                        },
+                        {
+                            id: "decorator-with-params",
+                            concept: "Διακοσμητές με Παραμέτρους (Parameterized Decorators)",
+                            python: {
+                                syntax: "@decorator(params)",
+                                example: "def repeat(times):\n    def decorator(func):\n        def wrapper(*args, **kwargs):\n            for i in range(times):\n                result = func(*args, **kwargs)\n            return result\n        return wrapper\n    return decorator\n\n@repeat(3)\ndef greet(name):\n    print(f\"Γεια σου {name}!\")",
+                                description: "Decorators που δέχονται παραμέτρους - 3 επίπεδα functions"
+                            },
+                            java: {
+                                syntax: "Annotation με parameters",
+                                example: "// Annotations με parameters (compile-time μόνο)\n@Entity(name = \"Student\")\n@Table(name = \"students\")\npublic class Student { ... }\n\n// Runtime decoration με Proxy pattern\nObject decorated = Proxy.newProxyInstance(\n    target.getClass().getClassLoader(),\n    target.getClass().getInterfaces(),\n    (proxy, method, args) -> {\n        // Pre-processing\n        Object result = method.invoke(target, args);\n        // Post-processing\n        return result;\n    }\n);",
+                                description: "Annotations για metadata, Proxy για runtime decoration"
+                            },
+                            tags: ["functions", "decorators", "parameters"]
+                        },
+                        {
+                            id: "builtin-decorators",
+                            concept: "Ενσωματωμένοι Διακοσμητές (Built-in Decorators)",
+                            python: {
+                                syntax: "@staticmethod, @classmethod, @property",
+                                example: "class MathUtils:\n    @staticmethod\n    def add(x, y):  # Δεν χρειάζεται instance\n        return x + y\n    \n    @classmethod\n    def from_string(cls, text):  # Δέχεται την κλάση\n        return cls(int(text))\n    \n    @property\n    def value(self):  # Getter\n        return self._value",
+                                description: "Ειδικοί decorators για κλάσεις και properties"
+                            },
+                            java: {
+                                syntax: "static methods, factory methods",
+                                example: "public class MathUtils {\n    public static int add(int x, int y) {\n        return x + y;\n    }\n    \n    // Factory method\n    public static MathUtils fromString(String text) {\n        return new MathUtils(Integer.parseInt(text));\n    }\n    \n    // Getter method\n    public int getValue() {\n        return this.value;\n    }\n}",
+                                description: "Static methods, factory patterns, getters/setters"
+                            },
+                            tags: ["functions", "decorators", "builtin"]
+                        }
+                    ]
+                },
+                {
+                    id: "generators",
+                    title: "Γεννήτριες (Generators)",
+                    content: [
+                        {
+                            id: "basic-generators",
+                            concept: "Βασικές Γεννήτριες (Basic Generators)",
+                            python: {
+                                syntax: "def generator_func(): yield value",
+                                example: "def count_up_to(max_count):\n    count = 1\n    while count <= max_count:\n        yield count\n        count += 1\n\ncounter = count_up_to(3)\nfor num in counter:\n    print(num)  # 1, 2, 3",
+                                description: "⚡ Memory-efficient - παράγουν values on-demand"
+                            },
+                            java: {
+                                syntax: "Δεν υπάρχουν built-in generators",
+                                example: "// Χρήση Iterator pattern\npublic class CountIterator implements Iterator<Integer> {\n    private int current = 1;\n    private final int max;\n    \n    public CountIterator(int max) { this.max = max; }\n    \n    public boolean hasNext() { return current <= max; }\n    \n    public Integer next() {\n        return current++;\n    }\n}\n\n// Χρήση: new CountIterator(3)",
+                                description: "Iterator interface για παρόμοια λειτουργικότητα"
+                            },
+                            tags: ["functions", "generators", "iterators"]
+                        },
+                        {
+                            id: "generator-expressions",
+                            concept: "Εκφράσεις Γεννητριών (Generator Expressions)",
+                            python: {
+                                syntax: "(expression for item in iterable)",
+                                example: "# Generator expression\nsquares_gen = (x**2 for x in range(5))\nprint(list(squares_gen))  # [0, 1, 4, 9, 16]\n\n# Σύγκριση με list comprehension\nsquares_list = [x**2 for x in range(5)]  # Φορτώνει όλα στη μνήμη",
+                                description: "🧠 Παρενθέσεις αντί αγκυλών - lazy evaluation"
+                            },
+                            java: {
+                                syntax: "Stream API (lazy evaluation)",
+                                example: "// Stream - lazy evaluation\nStream<Integer> squares = IntStream.range(0, 5)\n    .map(x -> x * x)\n    .boxed();\n\n// Μόνο όταν καλέσουμε terminal operation εκτελείται\nList<Integer> result = squares.collect(Collectors.toList());",
+                                description: "Streams παρέχουν lazy evaluation παρόμοια με generators"
+                            },
+                            tags: ["functions", "generators", "expressions"]
+                        },
+                        {
+                            id: "yield-from",
+                            concept: "Yield From (Generator Composition)",
+                            python: {
+                                syntax: "yield from iterable",
+                                example: "def generator1():\n    yield 1\n    yield 2\n\ndef generator2():\n    yield 3\n    yield 4\n\ndef combined():\n    yield from generator1()\n    yield from generator2()\n    yield 5\n\nprint(list(combined()))  # [1, 2, 3, 4, 5]",
+                                description: "Σύνθεση πολλαπλών generators σε έναν"
+                            },
+                            java: {
+                                syntax: "Stream concatenation",
+                                example: "Stream<Integer> stream1 = Stream.of(1, 2);\nStream<Integer> stream2 = Stream.of(3, 4);\nStream<Integer> stream3 = Stream.of(5);\n\nStream<Integer> combined = Stream.concat(\n    Stream.concat(stream1, stream2),\n    stream3\n);\n\nList<Integer> result = combined.collect(Collectors.toList());",
+                                description: "Stream.concat() για σύνθεση streams"
+                            },
+                            tags: ["functions", "generators", "composition"]
+                        }
+                    ]
+                },
+                {
+                    id: "higher-order-functions",
+                    title: "Συναρτήσεις Ανώτερης Τάξης (Higher-Order Functions)",
+                    content: [
+                        {
+                            id: "map-filter-reduce",
+                            concept: "Map, Filter, Reduce",
+                            python: {
+                                syntax: "map(), filter(), functools.reduce()",
+                                example: "from functools import reduce\n\nnumbers = [1, 2, 3, 4, 5]\n\n# Map - εφαρμόζει συνάρτηση σε όλα τα στοιχεία\nsquares = list(map(lambda x: x**2, numbers))\n\n# Filter - φιλτράρει στοιχεία\nevens = list(filter(lambda x: x % 2 == 0, numbers))\n\n# Reduce - συγκεντρώνει σε μία τιμή\nsum_all = reduce(lambda x, y: x + y, numbers)",
+                                description: "🔄 Functional programming τριάδα για data transformation"
+                            },
+                            java: {
+                                syntax: "Stream.map(), filter(), reduce()",
+                                example: "List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);\n\n// Map\nList<Integer> squares = numbers.stream()\n    .map(x -> x * x)\n    .collect(Collectors.toList());\n\n// Filter\nList<Integer> evens = numbers.stream()\n    .filter(x -> x % 2 == 0)\n    .collect(Collectors.toList());\n\n// Reduce\nint sum = numbers.stream()\n    .reduce(0, (x, y) -> x + y);",
+                                description: "Stream API για functional operations"
+                            },
+                            tags: ["functions", "higher-order", "functional"]
+                        },
+                        {
+                            id: "function-as-argument",
+                            concept: "Συνάρτηση ως Παράμετρος (Function as Argument)",
+                            python: {
+                                syntax: "def func(callback): callback(args)",
+                                example: "def process_data(data, transformer):\n    return [transformer(item) for item in data]\n\n# Χρήση\nnumbers = [1, 2, 3]\ndoubled = process_data(numbers, lambda x: x * 2)\nsquared = process_data(numbers, lambda x: x**2)",
+                                description: "Functions are first-class objects στην Python"
+                            },
+                            java: {
+                                syntax: "Functional interfaces as parameters",
+                                example: "public static <T, R> List<R> processData(\n        List<T> data, \n        Function<T, R> transformer) {\n    return data.stream()\n        .map(transformer)\n        .collect(Collectors.toList());\n}\n\n// Χρήση\nList<Integer> numbers = Arrays.asList(1, 2, 3);\nList<Integer> doubled = processData(numbers, x -> x * 2);",
+                                description: "Functional interfaces για passing functions"
+                            },
+                            tags: ["functions", "higher-order", "parameters"]
+                        },
+                        {
+                            id: "closures",
+                            concept: "Κλειστότητες (Closures)",
+                            python: {
+                                syntax: "Nested functions with access to outer scope",
+                                example: "def multiplier(factor):\n    def multiply(number):\n        return number * factor  # Πρόσβαση στο 'factor'\n    return multiply\n\n# Δημιουργία closures\ndouble = multiplier(2)\ntriple = multiplier(3)\n\nprint(double(5))  # 10\nprint(triple(5))  # 15",
+                                description: "Inner functions διατηρούν πρόσβαση στο outer scope"
+                            },
+                            java: {
+                                syntax: "Lambda με final/effectively final variables",
+                                example: "public static Function<Integer, Integer> multiplier(int factor) {\n    return number -> number * factor;  // 'factor' είναι effectively final\n}\n\n// Χρήση\nFunction<Integer, Integer> double = multiplier(2);\nFunction<Integer, Integer> triple = multiplier(3);\n\nSystem.out.println(double.apply(5));  // 10",
+                                description: "Lambda expressions μπορούν να capture effectively final variables"
+                            },
+                            tags: ["functions", "closures", "scope"]
+                        }
+                    ]
+                }
+            ]
+        },
+        // Ενότητα 16: Μονάδες & Βιβλιοθήκες (Modules & Libraries)
+        {
+            id: "modules-libraries",
+            title: "Μονάδες & Βιβλιοθήκες (Modules & Libraries)",
+            icon: "📦",
+            subsections: [
+                {
+                    id: "import-systems",
+                    title: "Συστήματα Εισαγωγής (Import Systems)",
+                    content: [
+                        {
+                            id: "basic-import",
+                            concept: "Βασική Εισαγωγή Μονάδων (Basic Module Import)",
+                            python: {
+                                syntax: "import module_name",
+                                example: "import math\nimport os\nimport sys\n\nprint(math.pi)  # 3.141592653589793\nprint(os.getcwd())  # Τρέχων φάκελος",
+                                description: "Εισαγωγή ολόκληρης της μονάδας - πρόσβαση με module_name.function"
+                            },
+                            java: {
+                                syntax: "import package.ClassName;",
+                                example: "import java.util.List;\nimport java.util.ArrayList;\nimport java.io.File;\n\nList<String> list = new ArrayList<>();\nFile file = new File(\"data.txt\");",
+                                description: "Import specific classes από packages"
+                            },
+                            tags: ["modules", "import", "basic"]
+                        },
+                        {
+                            id: "from-import",
+                            concept: "Επιλεκτική Εισαγωγή (Selective Import)",
+                            python: {
+                                syntax: "from module import function",
+                                example: "from math import pi, sqrt, sin\nfrom os import getcwd, listdir\n\nprint(pi)  # Απευθείας χρήση χωρίς math.\nprint(sqrt(16))  # 4.0",
+                                description: "Εισαγωγή συγκεκριμένων functions/variables από μονάδα"
+                            },
+                            java: {
+                                syntax: "import static για static members",
+                                example: "import static java.lang.Math.PI;\nimport static java.lang.Math.sqrt;\nimport static java.lang.Math.sin;\n\nSystem.out.println(PI);  // Απευθείας χρήση\nSystem.out.println(sqrt(16));",
+                                description: "Static imports για απευθείας πρόσβαση σε static members"
+                            },
+                            tags: ["modules", "import", "selective"]
+                        },
+                        {
+                            id: "import-alias",
+                            concept: "Ψευδώνυμα Εισαγωγής (Import Aliases)",
+                            python: {
+                                syntax: "import module as alias",
+                                example: "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n# Σύντομα ψευδώνυμα για μεγάλα ονόματα\ndata = np.array([1, 2, 3, 4])",
+                                description: "Συντομεύσεις για μακριά ονόματα μονάδων - standard practice"
+                            },
+                            java: {
+                                syntax: "Δεν υπάρχουν aliases",
+                                example: "// Χρήση πλήρους ονόματος ή import\nimport java.util.concurrent.ExecutorService;\n\n// Ή local variable για σύντομη αναφορά\nExecutorService executor = ...; // σύντομη αναφορά",
+                                description: "Δεν υπάρχουν built-in aliases - χρήση local variables"
+                            },
+                            tags: ["modules", "import", "aliases"]
+                        },
+                        {
+                            id: "wildcard-import",
+                            concept: "Εισαγωγή Όλων (Wildcard Import)",
+                            python: {
+                                syntax: "from module import *",
+                                example: "from math import *\n# Τώρα όλες οι functions του math είναι διαθέσιμες\nprint(sin(pi/2))  # 1.0\n\n# ⚠️ ΜΗ το κάνετε αυτό σε production code!",
+                                description: "⚠️ ΠΡΟΣΟΧΗ: Μπορεί να προκαλέσει namespace pollution"
+                            },
+                            java: {
+                                syntax: "import package.*;",
+                                example: "import java.util.*;\n\nList<String> list = new ArrayList<>();  // Από java.util\nMap<String, Integer> map = new HashMap<>();",
+                                description: "Import όλων των classes από package (compile-time μόνο)"
+                            },
+                            tags: ["modules", "import", "wildcard"],
+                            notes: "Python: Αποφύγετε το * import - δημιουργεί προβλήματα namespace"
+                        }
+                    ]
+                },
+                {
+                    id: "standard-library",
+                    title: "Βασικές Βιβλιοθήκες (Standard Library Essentials)",
+                    content: [
+                        {
+                            id: "json-handling",
+                            concept: "Διαχείριση JSON (JSON Handling)",
+                            python: {
+                                syntax: "import json",
+                                example: "import json\n\n# Python dict -> JSON string\ndata = {'name': 'Νίκος', 'age': 25}\njson_str = json.dumps(data, ensure_ascii=False)\n\n# JSON string -> Python dict\nparsed = json.loads(json_str)\nprint(parsed['name'])  # Νίκος",
+                                description: "json.dumps() για serialization, json.loads() για parsing"
+                            },
+                            java: {
+                                syntax: "Χρήση Jackson, Gson ή java.util.JsonObject (Java 11+)",
+                                example: "// Με Jackson ObjectMapper\nObjectMapper mapper = new ObjectMapper();\n\n// Java object -> JSON\nString jsonStr = mapper.writeValueAsString(student);\n\n// JSON -> Java object\nStudent parsed = mapper.readValue(jsonStr, Student.class);",
+                                description: "Χρειάζεται external library (Jackson/Gson) για JSON processing"
+                            },
+                            tags: ["modules", "json", "serialization"]
+                        },
+                        {
+                            id: "datetime-handling",
+                            concept: "Διαχείριση Ημερομηνιών (DateTime Handling)",
+                            python: {
+                                syntax: "import datetime",
+                                example: "import datetime\n\n# Τρέχουσα ημερομηνία/ώρα\nnow = datetime.datetime.now()\ntoday = datetime.date.today()\n\n# Δημιουργία συγκεκριμένης ημερομηνίας\nbirthday = datetime.date(1990, 5, 15)\n\n# Formatting\nformatted = now.strftime('%Y-%m-%d %H:%M:%S')",
+                                description: "datetime module για dates, times, timestamps και formatting"
+                            },
+                            java: {
+                                syntax: "java.time package (Java 8+)",
+                                example: "import java.time.*;\nimport java.time.format.DateTimeFormatter;\n\n// Τρέχουσα ημερομηνία/ώρα\nLocalDateTime now = LocalDateTime.now();\nLocalDate today = LocalDate.now();\n\n// Δημιουργία συγκεκριμένης ημερομηνίας\nLocalDate birthday = LocalDate.of(1990, 5, 15);\n\n// Formatting\nString formatted = now.format(DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\"));",
+                                description: "java.time API - modern, immutable date/time handling"
+                            },
+                            tags: ["modules", "datetime", "formatting"]
+                        },
+                        {
+                            id: "regex-patterns",
+                            concept: "Κανονικές Εκφράσεις (Regular Expressions)",
+                            python: {
+                                syntax: "import re",
+                                example: "import re\n\n# Pattern matching\npattern = r'\\d{3}-\\d{2}-\\d{4}'\ntext = 'Τηλ: 210-12-3456'\nmatch = re.search(pattern, text)\nif match:\n    print(f\"Βρέθηκε: {match.group()}\")  # 210-12-3456\n\n# Find all matches\nall_numbers = re.findall(r'\\d+', text)",
+                                description: "re module για pattern matching, searching και replacing"
+                            },
+                            java: {
+                                syntax: "java.util.regex package",
+                                example: "import java.util.regex.*;\n\n// Pattern matching\nString pattern = \"\\\\d{3}-\\\\d{2}-\\\\d{4}\";\nString text = \"Τηλ: 210-12-3456\";\nPattern p = Pattern.compile(pattern);\nMatcher m = p.matcher(text);\n\nif (m.find()) {\n    System.out.println(\"Βρέθηκε: \" + m.group());\n}",
+                                description: "Pattern και Matcher classes για regex operations"
+                            },
+                            tags: ["modules", "regex", "patterns"]
+                        },
+                        {
+                            id: "file-path-operations",
+                            concept: "Διαχείριση Μονοπατιών (Path Operations)",
+                            python: {
+                                syntax: "from pathlib import Path",
+                                example: "from pathlib import Path\n\n# Modern path handling\nfile_path = Path('data') / 'files' / 'document.txt'\nprint(file_path.exists())\nprint(file_path.suffix)  # .txt\nprint(file_path.stem)    # document\n\n# Cross-platform paths\nhome = Path.home()\nconfig = home / '.config' / 'app.conf'",
+                                description: "pathlib για modern, object-oriented path handling"
+                            },
+                            java: {
+                                syntax: "java.nio.file package",
+                                example: "import java.nio.file.*;\n\n// Modern path handling (Java 7+)\nPath filePath = Paths.get(\"data\", \"files\", \"document.txt\");\nSystem.out.println(Files.exists(filePath));\n\n// Cross-platform paths\nPath home = Paths.get(System.getProperty(\"user.home\"));\nPath config = home.resolve(\".config\").resolve(\"app.conf\");",
+                                description: "java.nio.file για modern file system operations"
+                            },
+                            tags: ["modules", "filesystem", "paths"]
+                        }
+                    ]
+                },
+                {
+                    id: "package-management",
+                    title: "Διαχείριση Πακέτων (Package Management)",
+                    content: [
+                        {
+                            id: "pip-management",
+                            concept: "Διαχείριση με pip (Package Management with pip)",
+                            python: {
+                                syntax: "pip install package_name",
+                                example: "# Εγκατάσταση πακέτου\npip install requests numpy pandas\n\n# Εγκατάσταση συγκεκριμένης έκδοσης\npip install django==3.2.0\n\n# Εγκατάσταση από requirements.txt\npip install -r requirements.txt\n\n# Λίστα εγκατεστημένων\npip list",
+                                description: "pip: Python package installer για PyPI packages"
+                            },
+                            java: {
+                                syntax: "Maven, Gradle build tools",
+                                example: "<!-- Maven pom.xml -->\n<dependency>\n    <groupId>com.fasterxml.jackson.core</groupId>\n    <artifactId>jackson-core</artifactId>\n    <version>2.13.0</version>\n</dependency>\n\n// Gradle build.gradle\ndependencies {\n    implementation 'com.fasterxml.jackson.core:jackson-core:2.13.0'\n}",
+                                description: "Maven/Gradle για dependency management και build automation"
+                            },
+                            tags: ["modules", "packages", "management"]
+                        },
+                        {
+                            id: "virtual-environments",
+                            concept: "Εικονικά Περιβάλλοντα (Virtual Environments)",
+                            python: {
+                                syntax: "python -m venv env_name",
+                                example: "# Δημιουργία virtual environment\npython -m venv myproject_env\n\n# Ενεργοποίηση (Windows)\nmyproject_env\\Scripts\\activate\n\n# Ενεργοποίηση (Linux/Mac)\nsource myproject_env/bin/activate\n\n# Απενεργοποίηση\ndeactivate",
+                                description: "Απομόνωση dependencies per project - αποφυγή conflicts"
+                            },
+                            java: {
+                                syntax: "Project-based dependency isolation",
+                                example: "// Maven projects απομονώνουν dependencies αυτόματα\n// Κάθε project έχει το δικό του classpath\n\n// Για runtime isolation:\n// - Docker containers\n// - Application servers (Tomcat, etc.)\n// - Module system (Java 9+)",
+                                description: "Project-based isolation με build tools, modules ή containers"
+                            },
+                            tags: ["modules", "environments", "isolation"]
+                        },
+                        {
+                            id: "requirements-management",
+                            concept: "Διαχείριση Απαιτήσεων (Requirements Management)",
+                            python: {
+                                syntax: "requirements.txt file",
+                                example: "# requirements.txt\nrequests==2.28.1\nflask>=2.0.0,<3.0.0\nnumpy\npandas==1.4.3\n\n# Παραγωγή requirements.txt\npip freeze > requirements.txt\n\n# Εγκατάσταση από requirements\npip install -r requirements.txt",
+                                description: "requirements.txt για reproducible environments"
+                            },
+                            java: {
+                                syntax: "pom.xml (Maven) ή build.gradle (Gradle)",
+                                example: "<!-- Maven dependency management -->\n<dependencyManagement>\n    <dependencies>\n        <dependency>\n            <groupId>org.springframework</groupId>\n            <artifactId>spring-framework-bom</artifactId>\n            <version>5.3.21</version>\n            <type>pom</type>\n            <scope>import</scope>\n        </dependency>\n    </dependencies>\n</dependencyManagement>",
+                                description: "pom.xml ή build.gradle για declarative dependency management"
+                            },
+                            tags: ["modules", "dependencies", "build-tools"]
+                        }
+                    ]
+                },
+                {
+                    id: "creating-modules",
+                    title: "Δημιουργία Μονάδων (Creating Modules)",
+                    content: [
+                        {
+                            id: "python-module-structure",
+                            concept: "Δομή Python Module",
+                            python: {
+                                syntax: "__init__.py files για packages",
+                                example: "# mypackage/__init__.py\nfrom .module1 import function1\nfrom .module2 import Class2\n\n__version__ = \"1.0.0\"\n__all__ = ['function1', 'Class2']  # Τι εξάγεται με import *",
+                                description: "__init__.py κάνει directory σε package - μπορεί να είναι κενό ή να περιέχει initialization code"
+                            },
+                            java: {
+                                syntax: "package declarations",
+                                example: "// mypackage/Module1.java\npackage mypackage;\n\npublic class Module1 {\n    public static void function1() {\n        // implementation\n    }\n}\n\n// module-info.java (Java 9+)\nmodule mymodule {\n    exports mypackage;\n}",
+                                description: "package keyword για namespace, module-info.java για module system"
+                            },
+                            tags: ["modules", "creation", "structure"]
+                        },
+                        {
+                            id: "documentation",
+                            concept: "Τεκμηρίωση Μονάδων (Module Documentation)",
+                            python: {
+                                syntax: "Docstrings για modules και functions",
+                                example: "\"\"\"\nMyPackage - Utility functions for data processing.\n\nThis module provides functions for:\n- Data cleaning\n- Statistical analysis  \n- Visualization helpers\n\nExample:\n    >>> from mypackage import clean_data\n    >>> result = clean_data(raw_data)\n\"\"\"\n\ndef process_data(data):\n    \"\"\"\n    Process raw data and return cleaned version.\n    \n    Args:\n        data (list): Raw data to process\n    \n    Returns:\n        list: Cleaned and processed data\n    \"\"\"\n    return processed_data",
+                                description: "Triple-quoted strings για module και function documentation"
+                            },
+                            java: {
+                                syntax: "Javadoc comments με /** */",
+                                example: "/**\n * MyPackage - Utility classes for data processing.\n * \n * <p>This package provides classes for:\n * <ul>\n *   <li>Data cleaning</li>\n *   <li>Statistical analysis</li>\n *   <li>Visualization helpers</li>\n * </ul>\n * \n * @author Your Name\n * @version 1.0\n * @since 2023\n */\npackage mypackage;\n\n/**\n * Process raw data and return cleaned version.\n * \n * @param data Raw data to process\n * @return Cleaned and processed data\n */\npublic static List<String> processData(List<String> data) {\n    return processedData;\n}",
+                                description: "Javadoc για HTML documentation generation"
+                            },
+                            tags: ["modules", "documentation", "docstrings"]
+                        }
+                    ]
+                }
+            ]
+        },
+        // Ενότητα 17: Προχωρημένες Δομές Δεδομένων (Advanced Data Structures)
+        {
+            id: "advanced-data-structures",
+            title: "Προχωρημένες Δομές Δεδομένων (Advanced Data Structures)",
+            icon: "🔧",
+            subsections: [
+                {
+                    id: "iterators-iterables",
+                    title: "Επαναλήπτες και Επαναλήψιμα (Iterators & Iterables)",
+                    content: [
+                        {
+                            id: "iterator-protocol",
+                            concept: "Πρωτόκολλο Επαναλήπτη (Iterator Protocol)",
+                            python: {
+                                syntax: "__iter__() και __next__() methods",
+                                example: "class CountDown:\n    def __init__(self, start):\n        self.start = start\n    \n    def __iter__(self):\n        return self\n    \n    def __next__(self):\n        if self.start <= 0:\n            raise StopIteration\n        self.start -= 1\n        return self.start + 1\n\n# Χρήση\nfor num in CountDown(3):\n    print(num)  # 3, 2, 1",
+                                description: "__iter__ επιστρέφει iterator object, __next__ επιστρέφει επόμενο στοιχείο"
+                            },
+                            java: {
+                                syntax: "Iterator interface implementation",
+                                example: "public class CountDown implements Iterator<Integer> {\n    private int current;\n    \n    public CountDown(int start) {\n        this.current = start;\n    }\n    \n    @Override\n    public boolean hasNext() {\n        return current > 0;\n    }\n    \n    @Override\n    public Integer next() {\n        if (!hasNext()) {\n            throw new NoSuchElementException();\n        }\n        return current--;\n    }\n}",
+                                description: "Iterator interface με hasNext() και next() methods"
+                            },
+                            tags: ["iterators", "protocol", "custom"]
+                        },
+                        {
+                            id: "iterable-objects",
+                            concept: "Επαναλήψιμα Αντικείμενα (Iterable Objects)",
+                            python: {
+                                syntax: "Οποιοδήποτε object με __iter__() method",
+                                example: "class NumberSequence:\n    def __init__(self, numbers):\n        self.numbers = numbers\n    \n    def __iter__(self):\n        return iter(self.numbers)  # Delegate στη λίστα\n\n# Χρήση\nseq = NumberSequence([1, 2, 3, 4])\nfor num in seq:\n    print(num)\n\n# Δουλεύει με list(), tuple(), sum() κλπ\nresult = list(seq)",
+                                description: "Iterable objects μπορούν να χρησιμοποιηθούν σε for loops και built-ins"
+                            },
+                            java: {
+                                syntax: "Iterable interface implementation",
+                                example: "public class NumberSequence implements Iterable<Integer> {\n    private List<Integer> numbers;\n    \n    public NumberSequence(List<Integer> numbers) {\n        this.numbers = new ArrayList<>(numbers);\n    }\n    \n    @Override\n    public Iterator<Integer> iterator() {\n        return numbers.iterator();\n    }\n}\n\n// Χρήση με enhanced for loop\nfor (Integer num : new NumberSequence(Arrays.asList(1, 2, 3))) {\n    System.out.println(num);\n}",
+                                description: "Iterable interface επιτρέπει enhanced for loop usage"
+                            },
+                            tags: ["iterators", "iterable", "collections"]
+                        }
+                    ]
+                },
+                {
+                    id: "context-managers",
+                    title: "Διαχειριστές Περιβάλλοντος (Context Managers)",
+                    content: [
+                        {
+                            id: "with-statement",
+                            concept: "With Statement Pattern",
+                            python: {
+                                syntax: "with context_manager as variable:",
+                                example: "# Built-in context manager\nwith open('file.txt', 'r') as f:\n    content = f.read()\n# Αρχείο κλείνει αυτόματα\n\n# Custom context manager\nclass Timer:\n    def __enter__(self):\n        self.start = time.time()\n        return self\n    \n    def __exit__(self, exc_type, exc_val, exc_tb):\n        print(f\"Χρόνος: {time.time() - self.start:.2f}s\")\n\nwith Timer():\n    time.sleep(1)  # Μετράει χρόνο αυτόματα",
+                                description: "__enter__ για setup, __exit__ για cleanup - εγγυημένος cleanup"
+                            },
+                            java: {
+                                syntax: "try-with-resources statement",
+                                example: "// Με AutoCloseable resources\ntry (FileReader reader = new FileReader(\"file.txt\");\n     BufferedReader buffered = new BufferedReader(reader)) {\n    \n    String line = buffered.readLine();\n    // Resources κλείνουν αυτόματα\n} catch (IOException e) {\n    e.printStackTrace();\n}\n\n// Custom AutoCloseable\npublic class Timer implements AutoCloseable {\n    private long start = System.currentTimeMillis();\n    \n    @Override\n    public void close() {\n        System.out.println(\"Χρόνος: \" + \n            (System.currentTimeMillis() - start) + \"ms\");\n    }\n}",
+                                description: "try-with-resources για automatic resource management"
+                            },
+                            tags: ["context-managers", "resources", "cleanup"]
+                        },
+                        {
+                            id: "contextlib-decorators",
+                            concept: "Contextlib Decorators",
+                            python: {
+                                syntax: "@contextmanager decorator",
+                                example: "from contextlib import contextmanager\nimport tempfile\nimport os\n\n@contextmanager\ndef temp_directory():\n    \"\"\"Temporary directory context manager.\"\"\"\n    temp_dir = tempfile.mkdtemp()\n    try:\n        yield temp_dir  # Επιστρέφει το directory\n    finally:\n        # Cleanup - διαγράφει το directory\n        import shutil\n        shutil.rmtree(temp_dir)\n\n# Χρήση\nwith temp_directory() as tmp_dir:\n    file_path = os.path.join(tmp_dir, 'test.txt')\n    with open(file_path, 'w') as f:\n        f.write('test')\n# Directory διαγράφηκε αυτόματα",
+                                description: "Decorator που μετατρέπει generator function σε context manager"
+                            },
+                            java: {
+                                syntax: "Functional interfaces για similar patterns",
+                                example: "// Functional approach για resource management\npublic static <T> void withResource(\n        Supplier<T> resourceSupplier,\n        Consumer<T> action) {\n    \n    T resource = resourceSupplier.get();\n    try {\n        action.accept(resource);\n    } finally {\n        if (resource instanceof AutoCloseable) {\n            try {\n                ((AutoCloseable) resource).close();\n            } catch (Exception e) {\n                e.printStackTrace();\n            }\n        }\n    }\n}\n\n// Χρήση\nwithResource(\n    () -> new FileInputStream(\"file.txt\"),\n    stream -> { /* process stream */ }\n);",
+                                description: "Higher-order functions για resource management patterns"
+                            },
+                            tags: ["context-managers", "decorators", "generators"]
+                        }
+                    ]
+                },
+                {
+                    id: "advanced-comprehensions",
+                    title: "Προχωρημένες Συμπεριλήψεις (Advanced Comprehensions)",
+                    content: [
+                        {
+                            id: "nested-comprehensions",
+                            concept: "Εμφωλευμένες Συμπεριλήψεις (Nested Comprehensions)",
+                            python: {
+                                syntax: "Multi-level comprehensions",
+                                example: "# 2D λίστα flatten\nmatrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\nflattened = [num for row in matrix for num in row]\nprint(flattened)  # [1, 2, 3, 4, 5, 6, 7, 8, 9]\n\n# Nested με conditions\neven_squares = [x**2 for x in range(10) \n                if x % 2 == 0 if x > 2]\nprint(even_squares)  # [16, 36, 64]\n\n# Dict comprehension με nested logic\nword_lengths = {word: len(word) \n                for sentence in sentences \n                for word in sentence.split() \n                if len(word) > 3}",
+                                description: "Multiple for clauses και conditions για πολύπλοκες transformations"
+                            },
+                            java: {
+                                syntax: "Nested Stream operations",
+                                example: "// 2D λίστα flatten\nList<List<Integer>> matrix = Arrays.asList(\n    Arrays.asList(1, 2, 3),\n    Arrays.asList(4, 5, 6),\n    Arrays.asList(7, 8, 9)\n);\n\nList<Integer> flattened = matrix.stream()\n    .flatMap(Collection::stream)\n    .collect(Collectors.toList());\n\n// Nested με conditions\nList<Integer> evenSquares = IntStream.range(0, 10)\n    .filter(x -> x % 2 == 0)\n    .filter(x -> x > 2)\n    .map(x -> x * x)\n    .boxed()\n    .collect(Collectors.toList());",
+                                description: "flatMap() για flattening, chained operations για complex logic"
+                            },
+                            tags: ["comprehensions", "nested", "advanced"]
+                        },
+                        {
+                            id: "conditional-expressions",
+                            concept: "Conditional Expressions σε Comprehensions",
+                            python: {
+                                syntax: "Ternary operator μέσα σε comprehensions",
+                                example: "# Conditional transformation\nnumbers = [-3, -2, -1, 0, 1, 2, 3]\nprocessed = [x if x >= 0 else -x for x in numbers]\nprint(processed)  # [3, 2, 1, 0, 1, 2, 3] - absolute values\n\n# Complex conditional logic\ngrades = [85, 92, 78, 96, 88]\nletters = [('A' if g >= 90 else \n           'B' if g >= 80 else \n           'C' if g >= 70 else 'F') for g in grades]\nprint(letters)  # ['B', 'A', 'C', 'A', 'B']\n\n# Dict με conditional values\nstudent_status = {name: ('Pass' if grade >= 70 else 'Fail') \n                  for name, grade in zip(names, grades)}",
+                                description: "Ternary expressions για conditional transformations μέσα σε comprehensions"
+                            },
+                            java: {
+                                syntax: "Conditional mapping με ternary operator",
+                                example: "List<Integer> numbers = Arrays.asList(-3, -2, -1, 0, 1, 2, 3);\n\n// Conditional transformation\nList<Integer> processed = numbers.stream()\n    .map(x -> x >= 0 ? x : -x)  // absolute values\n    .collect(Collectors.toList());\n\n// Complex conditional με method reference\nList<Integer> grades = Arrays.asList(85, 92, 78, 96, 88);\nList<String> letters = grades.stream()\n    .map(g -> g >= 90 ? \"A\" : \n              g >= 80 ? \"B\" : \n              g >= 70 ? \"C\" : \"F\")\n    .collect(Collectors.toList());",
+                                description: "Ternary operator στο map() για conditional transformations"
+                            },
+                            tags: ["comprehensions", "conditionals", "ternary"]
+                        }
+                    ]
+                },
+                {
+                    id: "memory-efficiency",
+                    title: "Αποδοτικότητα Μνήμης (Memory Efficiency)",
+                    content: [
+                        {
+                            id: "generator-vs-list",
+                            concept: "Generators vs Lists Performance",
+                            python: {
+                                syntax: "Memory και performance comparison",
+                                example: "import sys\n\n# List comprehension - φορτώνει όλα στη μνήμη\nlarge_list = [x**2 for x in range(1000000)]\nprint(f\"List μνήμη: {sys.getsizeof(large_list)} bytes\")\n\n# Generator - lazy evaluation\nlarge_gen = (x**2 for x in range(1000000))\nprint(f\"Generator μνήμη: {sys.getsizeof(large_gen)} bytes\")\n\n# Generator function\ndef squares(n):\n    for x in range(n):\n        yield x**2\n\n# Χρήση μόνο όσων χρειάζονται\nfirst_ten = list(itertools.islice(squares(1000000), 10))",
+                                description: "Generators χρησιμοποιούν σταθερή μνήμη, lists αυξάνονται γραμμικά"
+                            },
+                            java: {
+                                syntax: "Stream lazy evaluation vs Collections",
+                                example: "// Stream - lazy evaluation\nStream<Integer> largeStream = IntStream.range(0, 1000000)\n    .map(x -> x * x)\n    .boxed();\n\n// Μόνο όταν καλέσουμε terminal operation εκτελείται\nList<Integer> firstTen = largeStream\n    .limit(10)\n    .collect(Collectors.toList());\n\n// Collection - eager evaluation\nList<Integer> largeList = IntStream.range(0, 1000000)\n    .map(x -> x * x)\n    .boxed()\n    .collect(Collectors.toList());  // Φορτώνει όλα στη μνήμη",
+                                description: "Streams παρέχουν lazy evaluation παρόμοια με Python generators"
+                            },
+                            tags: ["memory", "performance", "lazy-evaluation"],
+                            notes: "Generators εξοικονομούν μνήμη αλλά μπορούν να χρησιμοποιηθούν μόνο μία φορά"
+                        },
+                        {
+                            id: "slots-optimization",
+                            concept: "Memory Optimization με __slots__",
+                            python: {
+                                syntax: "__slots__ για memory optimization",
+                                example: "# Κανονική κλάση - χρησιμοποιεί dict για attributes\nclass RegularPoint:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n\n# Optimized κλάση - χρησιμοποιεί __slots__\nclass OptimizedPoint:\n    __slots__ = ['x', 'y']  # Περιορίζει attributes\n    \n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n\n# Memory comparison\nimport sys\nreg = RegularPoint(1, 2)\nopt = OptimizedPoint(1, 2)\nprint(f\"Regular: {sys.getsizeof(reg.__dict__)}\")\nprint(f\"Slots: {sys.getsizeof(opt)}\")",
+                                description: "__slots__ μειώνει memory footprint και βελτιώνει attribute access speed"
+                            },
+                            java: {
+                                syntax: "Records για memory-efficient data classes",
+                                example: "// Traditional class\npublic class RegularPoint {\n    private final int x, y;\n    \n    public RegularPoint(int x, int y) {\n        this.x = x; this.y = y;\n    }\n    \n    // getters, equals, hashCode, toString...\n}\n\n// Record (Java 14+) - automatically optimized\npublic record OptimizedPoint(int x, int y) {\n    // Compiler generates constructor, getters, equals, hashCode, toString\n    // Memory efficient representation\n}\n\n// Value classes (future Java) will provide even better optimization",
+                                description: "Records παρέχουν memory-efficient immutable data classes"
+                            },
+                            tags: ["memory", "optimization", "slots"]
+                        }
+                    ]
+                }
+            ]
         }
     ],
     en: [
