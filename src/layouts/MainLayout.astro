@@ -25,14 +25,17 @@ const pageTitle =
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
 
+    <!-- Preload favicon to prevent flicker during navigation -->
+    <link rel="preload" href={`${base}/favicon.svg`} as="image" type="image/svg+xml" data-astro-rerun />
+
     <!-- Favicon - Multi-platform support -->
-    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
-    <link rel="icon" type="image/png" sizes="32x32" href={`${base}/favicon-32x32.png`} />
-    <link rel="icon" type="image/png" sizes="16x16" href={`${base}/favicon-16x16.png`} />
-    <link rel="shortcut icon" href={`${base}/favicon.ico`} />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} data-astro-rerun />
+    <link rel="icon" type="image/png" sizes="32x32" href={`${base}/favicon-32x32.png`} data-astro-rerun />
+    <link rel="icon" type="image/png" sizes="16x16" href={`${base}/favicon-16x16.png`} data-astro-rerun />
+    <link rel="shortcut icon" href={`${base}/favicon.ico`} data-astro-rerun />
 
     <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href={`${base}/apple-touch-icon.png`} />
+    <link rel="apple-touch-icon" sizes="180x180" href={`${base}/apple-touch-icon.png`} data-astro-rerun />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="CS Companion" />
