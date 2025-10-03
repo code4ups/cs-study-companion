@@ -24,8 +24,32 @@ const pageTitle =
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
-    <!-- Favicon -->
+
+    <!-- Favicon - Multi-platform support -->
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <link rel="icon" type="image/png" sizes="32x32" href={`${base}/favicon-32x32.png`} />
+    <link rel="icon" type="image/png" sizes="16x16" href={`${base}/favicon-16x16.png`} />
+    <link rel="shortcut icon" href={`${base}/favicon.ico`} />
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href={`${base}/apple-touch-icon.png`} />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="CS Companion" />
+
+    <!-- Android / Chrome -->
+    <link rel="manifest" href={`${base}/manifest.json`} />
+    <meta name="theme-color" content="#4F46E5" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content="Interactive Computer Science study companion with cheat sheets, programming glossaries, and vocabulary tools" />
+    <meta property="og:image" content={`${base}/android-chrome-512x512.png`} />
+
+    <!-- Additional Meta -->
+    <meta name="description" content="Interactive Computer Science study companion with cheat sheets, programming glossaries, and vocabulary tools" />
     <!-- Prevent dark mode flash with saved preference priority -->
     <script is:inline>
         (function() {
